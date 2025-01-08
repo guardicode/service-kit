@@ -160,6 +160,17 @@ def configure_logger(
     pretty_print_logs: bool,
     log_file_prefix: str | None = None,
 ):
+    """
+    Configures the service's structured logger
+
+    :param log_level: The minimum severity level to log messages for
+    :param log_directory: An optional directory where log files will be stored. If this is None
+                         (the default), then no log files will be written. If the specified
+                         directory does not exist it will be created.
+    :param pretty_print_logs: Whether or not to pretty-print logs
+    :param log_file_prefix: A string that will be prepended to any log files
+                            that are created (default: None)
+    """
     serializer.set_pretty_print(pretty_print_logs)
 
     # Remove default logger before adding new handlers.
