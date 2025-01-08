@@ -173,6 +173,8 @@ def configure_logger(
     )
 
     if log_directory is not None:
+        _create_log_directory(log_directory)
+
         log_file_name_template = "{time}.log"
         if log_file_prefix is not None:
             log_file_name_template = f"{log_file_prefix}_{log_file_name_template}"
@@ -188,6 +190,13 @@ def configure_logger(
         )
 
     intercept_preconfigured_loggers()
+
+
+def _create_log_directory(log_directory: Path):
+    if not log_directory.exists():
+        log_directory.mkdir(parents=True)
+    elif not log_directory.is_dir():
+        raise ValueError(f"{log_directory} is not a directory")
 
 
 def intercept_preconfigured_loggers():
