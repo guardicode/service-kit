@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import sys
+from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
@@ -189,7 +190,7 @@ def configure_logger(
             opener=lambda path, flags: os.open(path, flags, 0o600),
         )
 
-    intercept_preconfigured_loggers()
+    intercept_preconfigured_loggers(("uvicorn", "uvicorn.access", "uvicorn.asgi", "uvicorn.error"))
 
 
 def _create_log_directory(log_directory: Path):
@@ -199,16 +200,22 @@ def _create_log_directory(log_directory: Path):
         raise ValueError(f"{log_directory} is not a directory")
 
 
-def intercept_preconfigured_loggers():
-    # Since uvicorn forks and configures logging, we need to incercept its
-    # loggers in order to capture them in all of our sinks and in our desired
-    # format.
+def intercept_preconfigured_loggers(logger_names: Iterable[str]):
+    """
+    Configure 3rd-party packages to use the correct logger
+
+    Some 3rd-party packages configure their own loggers. For example, uvicorn forks and configures
+    logging. As a result, its loggers need to be intercepted in order to capture the package's log
+    messages in all of our sinks and in our desired format.
+
+    :param logger_names: An iterable of names of the loggers that must be intercepted
+    """
     intercept_handler = InterceptHandler()
 
     logging.basicConfig(handlers=[intercept_handler], level=0, force=True)
 
-    for name in ("uvicorn", "uvicorn.access", "uvicorn.asgi", "uvicorn.error"):
-        uvicorn_logger = logging.getLogger(name)
-        uvicorn_logger.handlers = [intercept_handler]
-        uvicorn_logger.propagate = False
-        uvicorn_logger.propagate = False
+    for name in logger_names:
+        third_party_logger = logging.getLogger(name)
+        third_party_logger.handlers = [intercept_handler]
+        third_party_logger.propagate = False
+        third_party_logger.propagate = False
