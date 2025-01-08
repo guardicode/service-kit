@@ -1,0 +1,34 @@
+{
+  "template": "https://github.com/guardicode/infection-monkey-cookiecutter",
+  "commit": "ce54bf054d7c6ef4b8da6b64c9ec28d5d0407c78",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "__project_type": "generic",
+      "project_name": "service-kit",
+      "__project_slug": "service_kit",
+      "full_name": "Mike Salvatore",
+      "email": "mike.salvatore@akamai.com",
+      "platform": "github",
+      "org": "guardicode",
+      "url": "https://github.com/guardicode/service-kit",
+      "__year": "2025",
+      "license": "GPLv3",
+      "versioning_scheme": "PEP440",
+      "project_short_description": "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain services",
+      "python_major_version": "3",
+      "python_minor_version": "11",
+      "support_type_checking": true,
+      "hook_shellcheck": true,
+      "exclude_these_file_in_flake8": "vulture_allowlist.py",
+      "_black_version": "24.3.0",
+      "_dlint_version": "0.14.1",
+      "_flake8_version": "7.1.1",
+      "_isort_version": "5.12.0",
+      "_mypy_version": "1.11.1",
+      "_vulture_version": "2.9.1",
+      "_template": "https://github.com/guardicode/infection-monkey-cookiecutter"
+    }
+  },
+  "directory": null
+}
