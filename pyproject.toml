@@ -35,7 +35,7 @@ log_cli = 1
 log_cli_level = "DEBUG"
 log_cli_format = "%(asctime)s [%(levelname)s] %(module)s.%(funcName)s.%(lineno)d: %(message)s"
 log_cli_date_format = "%H:%M:%S"
-addopts = "-v --capture=sys tests"
+addopts = "-v --capture=no tests"
 
 [tool.vulture]
 exclude=[]
@@ -57,6 +57,9 @@ include = ["CHANGELOG.md", "README.md"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+loguru = "^0.7.3"
+monkey-types = "^1.0.0"
+fastapi = "^0.115.6"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.3.0"
