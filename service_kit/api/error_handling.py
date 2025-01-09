@@ -46,6 +46,7 @@ def register_timeout_error_handler(app: FastAPI):
             exc,
             InternalServerErrorResponse,
             HTTPStatus.INTERNAL_SERVER_ERROR,
+            "The requested operation timed out.",
         )
 
 
