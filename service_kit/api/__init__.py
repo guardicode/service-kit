@@ -18,4 +18,5 @@ from .error_handling import (
     register_default_error_handler,
 )
 from .request_id_middleware import RequestIDMiddleware
+from .request_log_middleware import RequestLogMiddleware
 from .api_utils import bootstrap_logging, launch_uvicorn

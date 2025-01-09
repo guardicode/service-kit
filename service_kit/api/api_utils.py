@@ -4,7 +4,9 @@ import uvicorn
 from fastapi import FastAPI
 
 from service_kit.configuration import ServiceConfiguration
-from service_kit.logging import RequestLogMiddleware, SecurityRisk, configure_logger, logger
+from service_kit.logging import SecurityRisk, configure_logger, logger
+
+from . import RequestLogMiddleware
 
 
 async def bootstrap_logging(app: FastAPI, config: ServiceConfiguration):
