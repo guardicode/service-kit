@@ -45,7 +45,7 @@ paths = ["service_kit", "vulture_allowlist.py"]
 
 [tool.poetry]
 name = "service-kit"
-version = "v0.1.0"
+version = "v1.0.0"
 description = "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain different services"
 authors = ["Mike Salvatore <mike.salvatore@akamai.com>"]
 license = "GPLv3"
