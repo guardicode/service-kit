@@ -3,7 +3,7 @@ from http import HTTPStatus
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from httpx import AsyncClient
+from httpx import ASGITransport, AsyncClient
 
 from service_kit.api import (
     RequestID,
@@ -39,7 +39,7 @@ def api_client() -> TestClient:
 
 @pytest.fixture
 def async_api_client() -> AsyncClient:
-    return AsyncClient(app=app, base_url="http://test")
+    return AsyncClient(transport=ASGITransport(app), base_url="http://test")
 
 
 @pytest.fixture(scope="session")
