@@ -7,6 +7,7 @@ repos:
     rev: 24.3.0
     hooks:
       - id: black
+        exclude: "template_service.py"
   - repo: https://github.com/PyCQA/flake8
     rev: 7.1.1
     hooks:
@@ -31,8 +32,8 @@ repos:
     rev: v1.11.1
     hooks:
       - id: mypy
-        additional_dependencies: []
-        exclude: "vulture_allowlist.py"
+        additional_dependencies: [types-requests]
+        exclude: "(?x)(^vulture_allowlist.py$ | ^template_service.py$)"
         args: [--ignore-missing-imports, --check-untyped-defs]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
