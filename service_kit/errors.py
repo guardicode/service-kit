@@ -9,7 +9,7 @@ class StructuredError(Exception):
     Structured errors contain fields/properties that allows for more flexible
     handling and logging of errors.
 
-    :param msg: The error message
+    :param message: The error message
     :param kwargs: Additional attributes to include in the error
 
     Example:
@@ -29,10 +29,10 @@ class StructuredError(Exception):
     ```
     """
 
-    def __init__(self, msg, /, **kwargs):
-        super().__init__(msg)
+    def __init__(self, message, /, **kwargs):
+        super().__init__(message)
         self._attributes = kwargs
-        self._attributes["message"] = msg
+        self._attributes["message"] = message
 
     def __getattr__(self, name):
         try:
