@@ -6,7 +6,7 @@ from pydantic import BaseModel as PydanticBaseModel
 from pydantic import ValidationError
 
 
-class BaseModel(InfectionMonkeyBaseModel):
+class ServiceKitBaseModel(InfectionMonkeyBaseModel):
     def __setattr__(self, name: str, value: Any):
         # This method overrides InfectionMonkeyBaseModel.__setattr__().
         #  See the comments in _raise_type_or_value_error() for more details.
@@ -36,5 +36,5 @@ class BaseModel(InfectionMonkeyBaseModel):
         raise error
 
 
-class MutableBaseModel(BaseModel):
+class MutableServiceKitBaseModel(ServiceKitBaseModel):
     model_config = MutableModelConfig

@@ -7,7 +7,7 @@ api.get_standard_responses
 api.launch_uvicorn
 api.request_id
 
-base_model.MutableBaseModel
+base_model.MutableServiceKitBaseModel
 base_model._raise_type_or_value_error
 
 configuration.ListConfigurationType

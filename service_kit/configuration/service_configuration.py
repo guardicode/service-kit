@@ -5,11 +5,11 @@ from typing import Annotated, Self
 from pydantic import BeforeValidator, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from service_kit import BaseModel, NetworkPort
+from service_kit import NetworkPort, ServiceKitBaseModel
 from service_kit.logging import LogLevel
 
 
-class ServiceConfiguration(BaseSettings, BaseModel):
+class ServiceConfiguration(BaseSettings, ServiceKitBaseModel):
     model_config = SettingsConfigDict(env_parse_none_str="None", extra="ignore")
 
     bind_address: IPv4Address = Field(

@@ -15,7 +15,7 @@ from pygments import highlight
 from pygments.formatters import TerminalTrueColorFormatter
 from pygments.lexers import JsonLexer
 
-from service_kit import BaseModel
+from service_kit import ServiceKitBaseModel
 
 from . import LogLevel
 
@@ -77,7 +77,7 @@ class Serializer:
 
     @staticmethod
     def _default_serializer(obj: Any) -> str | dict[str, Any]:
-        if isinstance(obj, BaseModel):
+        if isinstance(obj, ServiceKitBaseModel):
             return obj.to_json_dict()
 
         return str(obj)
