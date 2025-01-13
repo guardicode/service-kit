@@ -20,11 +20,6 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
 
     @classmethod
     async def log_request(cls, request: Request) -> None:
-        try:
-            request_body = await request.json()
-        except json.JSONDecodeError:
-            request_body = str(await request.body())
-
         common_request_fields = {
             "method": request.method,
             "path": request.url.path,
@@ -36,6 +31,11 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
         sanitized_headers = RequestLogMiddleware.sanitize_headers(request.headers)
 
         if cls.debug:
+            try:
+                request_body = await request.json()
+            except json.JSONDecodeError:
+                request_body = str(await request.body())
+
             logger.debug(
                 "Request received",
                 **common_request_fields,
