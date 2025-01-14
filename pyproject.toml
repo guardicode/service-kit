@@ -6,6 +6,7 @@ requires-python = "^3.11"
 
 [tool.black]
 line-length = 100
+exclude = "template_service.py"
 
 [tool.cruft]
 skip = [
@@ -28,6 +29,7 @@ ensure_newline_before_comments = true
 
 [tool.mypy]
 check_untyped_defs = true
+exclude = "vulture_allowlist.py | template_service.py"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -35,7 +37,7 @@ log_cli = 1
 log_cli_level = "DEBUG"
 log_cli_format = "%(asctime)s [%(levelname)s] %(module)s.%(funcName)s.%(lineno)d: %(message)s"
 log_cli_date_format = "%H:%M:%S"
-addopts = "-v --capture=sys tests"
+addopts = "-v --capture=no tests"
 
 [tool.vulture]
 exclude=[]
@@ -43,7 +45,7 @@ paths = ["service_kit", "vulture_allowlist.py"]
 
 [tool.poetry]
 name = "service-kit"
-version = "v0.1.0"
+version = "v1.0.0"
 description = "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain different services"
 authors = ["Mike Salvatore <mike.salvatore@akamai.com>"]
 license = "GPLv3"
@@ -57,6 +59,12 @@ include = ["CHANGELOG.md", "README.md"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+loguru = "^0.7.3"
+monkey-types = "^1.0.0"
+fastapi = "^0.115.6"
+pydantic-settings = "^2.7.1"
+python-ulid = "^3.0.0"
+uvicorn = "^0.34.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.3.0"
@@ -70,6 +78,9 @@ pytest = "^7.1.0"
 pytest-cov = "^3.0.0"
 pytest-xdist = "^3.3.1"
 vulture = "2.9.1"
+httpx = "^0.28.1"
+jinja2 = "^3.1.5"
+requests = "^2.32.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
