@@ -1,7 +1,29 @@
 [project]
-name = "service-kit"
+authors = [{name = "Mike Salvatore", email="mike.salvatore@akamai.com"}]
+classifiers=[
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.11"
+]
+dependencies = [
+    "loguru (>=0.7.3, <1.0)",
+    "monkey-types (>=1.0.0, <2.0.0)",
+    "fastapi (>=0.115.6, <1.0.0)",
+    "pydantic-settings (>=2.7.1, <3.0)",
+    "python-ulid (>=3.0.0, <4.0.0)",
+    "uvicorn (>=0.34.0, <1.0.0)",
+]
+description = "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain services"
+dynamic = ["readme"]
 license = "GPLv3"
+name = "service-kit"
 requires-python = "^3.11"
+version = "v1.1.0"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+
+[project.urls]
+Repository = "https://github.com/guardicode/service-kit"
 
 
 [tool.black]
@@ -44,27 +66,7 @@ exclude=[]
 paths = ["service_kit", "vulture_allowlist.py"]
 
 [tool.poetry]
-name = "service-kit"
-version = "v1.1.0"
-description = "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain different services"
-authors = ["Mike Salvatore <mike.salvatore@akamai.com>"]
-license = "GPLv3"
-classifiers=[
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-    "Programming Language :: Python :: 3.11"
-]
-repository = "https://github.com/guardicode/service-kit"
-readme = "README.md"
 include = ["CHANGELOG.md", "README.md"]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-loguru = "^0.7.3"
-monkey-types = "^1.0.0"
-fastapi = "^0.115.6"
-pydantic-settings = "^2.7.1"
-python-ulid = "^3.0.0"
-uvicorn = "^0.34.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "24.3.0"
@@ -82,9 +84,9 @@ httpx = "^0.28.1"
 jinja2 = "^3.1.5"
 requests = "^2.32.3"
 
-[tool.poetry.extras]
+[project.optional-dependencies]
 psycopg = ["psycopg"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
