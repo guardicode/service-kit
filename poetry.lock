@@ -1184,7 +1184,7 @@ version = "2.19.1"
 description = "Pygments is a syntax highlighting package written in Python."
 optional = false
 python-versions = ">=3.8"
-groups = ["dev"]
+groups = ["main", "dev"]
 files = [
     {file = "pygments-2.19.1-py3-none-any.whl", hash = "sha256:9ea1544ad55cecf4b8242fab6dd35a93bbce657034b0611ee383099054ab6d8c"},
     {file = "pygments-2.19.1.tar.gz", hash = "sha256:61c16d2a8576dc0649d9f39e089b5f02bcd27fba10d8fb4dcc28173f7a45151f"},
@@ -1533,4 +1533,4 @@ psycopg = ["psycopg"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "00d3cd3c390303898ab0c0423c80acff70a9dfd39cef2ca3f18e6c54e4f6a623"
+content-hash = "7c51c2a6a5ab5fee551e571cc07a73b81fcc166f48e2c5a7ac92498b6d3ad115"
