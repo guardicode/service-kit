@@ -41,6 +41,12 @@ class UnauthorizedResponse(APIResponse):
     )
 
 
+class ForbiddenRequestResponse(APIResponse):
+    message: Annotated[str, Field(examples=["This request is not allowed for the client."])] = (
+        "This request is not allowed for the client."
+    )
+
+
 _standard_responses: dict[HTTPStatus, dict[str, Type[BaseModel] | dict]] = {
     HTTPStatus.INTERNAL_SERVER_ERROR: {
         "content": {"application/json": {"schema": InternalServerErrorResponse.model_json_schema()}}
@@ -59,6 +65,9 @@ _standard_responses: dict[HTTPStatus, dict[str, Type[BaseModel] | dict]] = {
     },
     HTTPStatus.UNAUTHORIZED: {
         "content": {"application/json": {"schema": UnauthorizedResponse.model_json_schema()}}
+    },
+    HTTPStatus.FORBIDDEN: {
+        "content": {"application/json": {"schema": ForbiddenRequestResponse.model_json_schema()}}
     },
 }
 
