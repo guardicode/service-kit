@@ -30,9 +30,7 @@ extensions = [
     "sphinx.ext.viewcode",
 ]
 
-autoapi_ignore = [
-    "*service_kit/types*",  # Exclude empty module
-]
+autoapi_ignore = []
 autoapi_dirs = ["../../service_kit"]
 autoapi_python_class_content = "both"  # Adjust this if needed
 autoapi_add_toctree_entry = True
