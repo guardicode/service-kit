@@ -7,30 +7,46 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath("../.."))
 
-project = 'Service Kit'
-copyright = '2025, Mike Salvatore'
-author = 'Mike Salvatore'
+project = "Service Kit"
+copyright = "2025, Mike Salvatore"
+author = "Mike Salvatore"
 
 # The short X.Y version
-version = ""
+version = "0.0"
 # The full version, including alpha/beta/rc tags
 release = "0.0.0"
 
 extensions = [
+    "sphinx.ext.autodoc",  # support for automatic documentation of docstrings
     "sphinx.ext.intersphinx",  # references to external documentation
-    "sphinx.ext.extlinks",
-    "sphinx_rtd_theme",  # ReadTheDocs theme
-    "sphinx.ext.inheritance_diagram",  # used for showing the inheritence diagram
+    "sphinx.ext.autosummary",
+    "sphinx_rtd_theme",
     "myst_parser",
     "autoapi.extension",
     "sphinx.ext.napoleon",  # support for Google-style and NumPy-style docstrings
     "sphinx.ext.viewcode",
 ]
+
+autoapi_ignore = [
+    "*service_kit/types*",  # Exclude empty module
+]
 autoapi_dirs = ["../../service_kit"]
 autoapi_python_class_content = "both"  # Adjust this if needed
-
+autoapi_add_toctree_entry = True
+autoapi_template = "python"
+autoapi_options = [
+    "members",
+    "undoc-members",
+    "private-members",
+    "show-inheritance",
+    "show-module-summary",
+    "special-members",
+    "imported-members",
+    "no-index",  # Prevents indexing duplicate objects
+]
 
 # Mappings for sphinx.ext.intersphinx. Projects have to have Sphinx-generated doc! (.inv file)
 intersphinx_mapping = {
@@ -38,12 +54,9 @@ intersphinx_mapping = {
 }
 
 autoclass_content = "both"  # Add __init__ doc (ie. params) to class summaries
-html_show_sourcelink = False  # Remove 'view source code' from top of page (for html, not python)
 set_type_checking_flag = True  # Enable 'expensive' imports for sphinx_autodoc_typehints
-autodoc_typehints = "both"  # Sphinx-native. Not as good as sphinx_autodoc_typehints
-add_module_names = False  # Remove namespaces from class/method signatures
-html_show_sphinx = False  # Shows "Build with Sphinx and RTD schem text at footer"
-html_show_copyright = True  # Shows copyright using the company and author specified above
+sphinx_autodoc_typehints = "both"  # Sphinx-native. Not as good as sphinx_autodoc_typehints
+add_module_names = True  # Remove namespaces from class/method signatures
 
 
 # Add any paths that contain templates here, relative to this directory.
@@ -71,13 +84,32 @@ language = "en"
 exclude_patterns = ["*node_modules*"]
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = "friendly"
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "sphinx_rtd_theme"
-html_static_path = ['_static']
+html_static_path = ["_static"]
+html_favicon = "_static/favicon.ico"
+html_show_sphinx = False  # Shows "Build with Sphinx and RTD schem text at footer"
+html_show_copyright = True  # Shows copyright using the company and author specified above
+html_show_sourcelink = False  # Remove 'view source code' from top of page (for html, not python)
+html_theme_options = {
+    "style_external_links": True,
+    "vcs_pageview_mode": "",
+    "version_selector": True,
+    "language_selector": True,
+    # Toc options
+    "collapse_navigation": False,
+    "sticky_navigation": True,
+    "navigation_depth": -1,
+    "includehidden": True,
+    "titles_only": False,
+}
 
-suppress_warnings = ["autoapi.python_import_resolution", "autoapi.not_readable"]
+# -- Options for autoapi -----------------------------------------------------
+# Note: python_import_resolution should be removed when looked into
+# why autoapi gets circular imports
+suppress_warnings = ["autoapi.python_import_resolution", "autoapi.not_readable", "myst.header"]
