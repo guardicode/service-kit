@@ -13,20 +13,22 @@ class StructuredError(Exception):
     :param kwargs: Additional attributes to include in the error
 
     Example:
-    ```
-    >>> from service_kit.errors import StructuredError
-    >>> err = StructuredError("my message", attr1="a1", attr2="a2")
-    >>> str(err)
-    'my message'
-    >>> err.message
-    'my message'
-    >>> err.attr1
-    'a1'
-    >>> err .attr2
-    'a2'
-    >>> err.structured_error
-    {'attr1': 'a1', 'attr2': 'a2', 'message': 'my message'}
-    ```
+
+    .. code-block:: python
+
+        >>> from service_kit.errors import StructuredError
+        >>> err = StructuredError("my message", attr1="a1", attr2="a2")
+        >>> str(err)
+        'my message'
+        >>> err.message
+        'my message'
+        >>> err.attr1
+        'a1'
+        >>> err.attr2
+        'a2'
+        >>> err.structured_error
+        {'attr1': 'a1', 'attr2': 'a2', 'message': 'my message'}
+
     """
 
     def __init__(self, message, /, **kwargs):

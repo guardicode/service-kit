@@ -11,14 +11,16 @@ from . import APIResponse, InternalServerErrorResponse, UnauthorizedResponse
 
 
 def register_authentication_error_handler(app: FastAPI):
-    """,
+    """
     Registers an error handler to handle authentication errors
 
-    NOTE: FastAPI raises 403 Forbidden in cases where 401 Unauthorized is the
-    correct response. (see https://github.com/tiangolo/fastapi/issues/10177).
-    Therefore, we're handling all 403 Forbidden errors and returning them as
-    401 Unauthorized instead. This behavior is fine for single-user systems.
-    It should be evaluated before use in multi-user systems.
+    .. note::
+
+        FastAPI raises 403 Forbidden in cases where 401 Unauthorized is the
+        correct response. (see https://github.com/tiangolo/fastapi/issues/10177).
+        Therefore, we're handling all 403 Forbidden errors and returning them as
+        401 Unauthorized instead. This behavior is fine for single-user systems.
+        It should be evaluated before use in multi-user systems.
 
     :param app: A FastAPI instance to register the handler for
     """
@@ -71,10 +73,12 @@ def register_default_error_handler(app: FastAPI):
     """
     Registers the default error handler defined by the uncaught_exceptions_middleware
 
-    NOTE: Adding a standard exception handler to catch unhandled exceptions
-    does not function as intented. Instead, a middleware must be regisered to
-    handle uncaught exceptions.
-    Reference: https://stackoverflow.com/questions/61596911/catch-exception-globally-in-fastapi
+    .. note::
+
+        Adding a standard exception handler to catch unhandled exceptions
+        does not function as intented. Instead, a middleware must be regisered to
+        handle uncaught exceptions.
+        Reference: https://stackoverflow.com/questions/61596911/catch-exception-globally-in-fastapi
 
     :param app: A FastAPI instance to register the handler for
     """
