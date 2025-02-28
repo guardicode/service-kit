@@ -8,13 +8,23 @@ Monkey team bootstrap, build, and maintain various services efficiently.
 
 ## Features
 
-- **Service Bootstrapping**: Provides templates and utilities to initialize
+- **Service Bootstrapping**: Provides templates and utilities to stand up
 new services quickly.
 - **Common Utilities**: Provides common utilities for logging, configuration,
 and error handling.
 - **Service Configuration**: Provides a base class for service
 configuration that can be easily extended.
 - **Testing Support**: Provides utilities for testing services.
+
+### Submodules
+
+- **api**: Provides components for setting up an API with FastAPI.
+- **base_model**: Provides a Pydantic BaseModel with extra features.
+- **configuration**: Provides models, types, and utilities for configuring a service.
+- **errors**: Enables exceptions using structured errors.
+- **logging**: Provides a logger that enables structured logging.
+- **testing**: Provides useful pytest fixtures.
+
 
 ## Getting started
 
