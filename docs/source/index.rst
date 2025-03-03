@@ -20,7 +20,7 @@
    Home page <self>
    Configuration <configuration>
    Template Service <template_service>
-   How to set Service-Kit <how_to_boostrap_a_service>
+   How to set Service-Kit <how_to_bootstrap_a_service>
 
 Indices and tables
 ==================
