@@ -1,4 +1,4 @@
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
-   :start-line: 40
-   :end-line: 115
+   :start-after: <!-- START_CONFIG_DOCS -->
+   :end-before: <!-- END_CONFIG_DOCS -->

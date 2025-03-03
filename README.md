@@ -1,3 +1,4 @@
+<!-- START_GENERAL_DOCS -->
 # Service Kit Documentation
 
 ![License](https://img.shields.io/github/license/guardicode/service-kit)
@@ -48,6 +49,8 @@ After installation you can start using Service-Kit as any other Python package.
 For more detailed example and usage patterns, refer to the
 `service_template.py` file included in the repository.
 
+<!-- END_GENERAL_DOCS -->
+<!-- START_CONFIG_DOCS -->
 ### Configuration
 
 Before using Service-Kit you will need to add configuration
@@ -122,8 +125,8 @@ The path to the SSL certificate file
 
 The path to the SSL key file
 <!-- generated env. vars. end -->
-
-
+<!-- END_CONFIG_DOCS -->
+<!-- START_DEV_DOCS -->
 ## Development
 
 ### Setting up your development environment
@@ -153,3 +156,4 @@ To run automated tests with test coverage, run
 $ poetry run pytest --cov-report=html --cov=service-kit
 $ firefox ./htmlcov/index.html
 ```
+<!-- END_DEV_DOCS -->

@@ -5,14 +5,14 @@
 
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
-   :start-line: 0
-   :end-line: 40
+   :start-after: <!-- START_GENERAL_DOCS -->
+   :end-before: <!-- END_GENERAL_DOCS -->
 
 
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
-   :start-line: 116
-   :end-line: 145
+   :start-after: <!-- START_DEV_DOCS -->
+   :end-before: <!-- END_DEV_DOCS -->
 
 .. toctree::
    :hidden:
