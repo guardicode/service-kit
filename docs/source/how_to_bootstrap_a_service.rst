@@ -1,4 +1,4 @@
-How to Set Up a GitHub Repository with `service-kit`
+How to bootstrap a service with `service-kit`
 ====================================================
 
 This guide will show you how to set up a GitHub repository with the `service-kit` package.
@@ -9,22 +9,22 @@ modify `template_service.py`, and run the project to verify that the "hello-worl
 Prerequisites
 -------------
 - Python 3.8 or higher
-- Poetry installed
-- Git installed
+- Poetry
+- Git
 
 Steps
 -----
 
-Set up project using Cookiecutter Template
+Set up Project using Cookiecutter Template
 --------------------------------------------
 
-1. **Install** ``cookiecutter`` **if you don’t have it:**
+1. **Install** ``cookiecutter`` **:**
 
    If you don’t have ``cookiecutter`` installed, you can install it with:
 
    .. code-block:: bash
 
-      pip install cookiecutter
+      $ pip install cookiecutter
 
 
    If you have any issues with the installation, refer to the ``cookiecutter`` documentation for more information:
@@ -36,7 +36,7 @@ Set up project using Cookiecutter Template
 
    .. code-block:: bash
 
-      cookiecutter https://github.com/guardicode/infection-monkey-cookiecutter
+      $ cookiecutter https://github.com/guardicode/infection-monkey-cookiecutter
 
    During the process, you will be asked to fill in some prompts (such as project name, description, etc.). Fill these in as needed.
 
@@ -44,7 +44,7 @@ Set up project using Cookiecutter Template
 
    .. code-block:: bash
 
-      cd <your-project-name>
+      $ cd <your-project-name>
 
 
 4. **Install Service-Kit**:
@@ -53,7 +53,7 @@ Set up project using Cookiecutter Template
 
    .. code-block:: bash
 
-      poetry add git+https://github.com/guardicode/service-kit.git
+      $ poetry add git+https://github.com/guardicode/service-kit.git
 
 
 Modify `template_service.py`
@@ -61,7 +61,7 @@ Modify `template_service.py`
 
 1. **Copy** ``template_service.py`` **to your Project**:
 
-   In Service-Kit project, there is a file named `template_service.py`_.
+   In the Service-Kit project, there is a file named `template_service.py`_.
    Copy this file to your project package directory.
 
    .. _template_service.py: https://github.com/guardicode/service-kit/blob/main/template_service.py
@@ -78,13 +78,13 @@ Modify `template_service.py`
 Run the Project
 ---------------
 
-1. **Run the template service**:
+1. **Run the Template Service**:
 
    Now, you should be able to run your project. From the root of the project directory, run the following:
 
    .. code-block:: bash
 
-      poetry run python <project_name>/template_service.py
+      $ poetry run python <project_name>/template_service.py
 
    This will execute the script and you should see output like:
 
@@ -95,13 +95,13 @@ Run the Project
       INFO:     Waiting for application startup.
       2025-02-28 16:09:36.914 | CRITICAL | service_kit_how_to.template_service:setup:60 - bind_address=IPv4Address('127.0.0.1') debug=False enable_hot_reload=False log_directory=None log_level=<LogLevel.INFO: 'INFO'> port=8080 pretty_print_logs=True ssl_certfile=None ssl_keyfile=None
 
-2. **Verify the** ``POST /echo/{customer_id}`` **endpoint**:
+2. **Verify the** ``POST /echo/{customer_id}`` **Endpoint**:
 
    Open a new terminal and run the following command:
 
    .. code-block:: bash
 
-      curl -X POST 'http://127.0.0.1:8080/echo/hello-world'
+      $ curl -X POST 'http://127.0.0.1:8080/echo/hello-world'
 
    You should see the following output:
 
@@ -112,5 +112,5 @@ Run the Project
 Conclusion
 ----------
 
-You’ve now successfully set up a GitHub repository for your project using either the **cookiecutter template**.
+You’ve now successfully set up a GitHub repository for your project using the **Cookiecutter template**.
 You installed `service-kit` via `pyproject.toml` using a GitHub link, modified `template_service.py`, and ran the project successfully with the "Hello-World" output.
