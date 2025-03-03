@@ -15,11 +15,12 @@ if errorlevel 9009 (
 	echo.
 	echo.The 'sphinx-build' command was not found. Make sure you have Sphinx
 	echo.installed, then set the SPHINXBUILD environment variable to point
-	echo.to the full path of the 'sphinx-build' executable. Alternatively you
+	echo.to the full path of the 'sphinx-build' executable. Alternatively, you
 	echo.may add the Sphinx directory to PATH.
 	echo.
-	echo.If you don't have Sphinx installed, grab it from
-	echo.https://www.sphinx-doc.org/
+	echo.If you don't have Sphinx installed, follow the instructions
+	echo.at https://www.sphinx-doc.org/en/master/usage/installation.html
+	echo.to install it.
 	exit /b 1
 )
 
