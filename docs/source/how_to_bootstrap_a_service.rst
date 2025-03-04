@@ -1,5 +1,5 @@
 How to bootstrap a service with `service-kit`
-====================================================
+=============================================
 
 This guide will show you how to set up a GitHub repository with the `service-kit` package.
 You can either use the **cookiecutter** template or set up the project manually.
@@ -16,7 +16,7 @@ Steps
 -----
 
 Set up Project using Cookiecutter Template
---------------------------------------------
+------------------------------------------
 
 1. **Install** ``cookiecutter`` **:**
 
@@ -57,7 +57,7 @@ Set up Project using Cookiecutter Template
 
 
 Modify `template_service.py`
------------------------------
+----------------------------
 
 1. **Copy** ``template_service.py`` **to your Project**:
 
