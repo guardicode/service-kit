@@ -1,5 +1,5 @@
 <!-- START_GENERAL_DOCS -->
-# Service Kit Documentation
+# Service-Kit Documentation
 
 ![License](https://img.shields.io/github/license/guardicode/service-kit)
 
