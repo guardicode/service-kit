@@ -1,7 +1,7 @@
 How to bootstrap a service with `service-kit`
 =============================================
 
-This guide will show you how to set up a GitHub repository with the `service-kit` package.
+This guide will show you how to start setting up a service with the `service-kit` package.
 You can either use the **cookiecutter** template or set up the project manually.
 We will also cover how to create a project with Cookiecutter, how to install `service-kit` in `pyproject.toml`,
 modify `template_service.py`, and run the project to verify that the "hello-world" feature is present.
@@ -18,9 +18,9 @@ Steps
 Set up Project using Cookiecutter Template
 ------------------------------------------
 
-1. **Install** ``cookiecutter`` **:**
+1. **Install** ``cookiecutter``:
 
-   If you don’t have ``cookiecutter`` installed, you can install it with:
+   If you don’t have ``cookiecutter`` installed, install it with:
 
    .. code-block:: bash
 
@@ -38,7 +38,7 @@ Set up Project using Cookiecutter Template
 
       $ cookiecutter https://github.com/guardicode/infection-monkey-cookiecutter
 
-   During the process, you will be asked to fill in some prompts (such as project name, description, etc.). Fill these in as needed.
+   During the process, you will be asked to fill in some prompts (project name, description, etc.). Fill these in as needed.
 
 3. **Navigate to the Newly Created Repository**:
 
@@ -95,7 +95,7 @@ Run the Project
       INFO:     Waiting for application startup.
       2025-02-28 16:09:36.914 | CRITICAL | service_kit_how_to.template_service:setup:60 - bind_address=IPv4Address('127.0.0.1') debug=False enable_hot_reload=False log_directory=None log_level=<LogLevel.INFO: 'INFO'> port=8080 pretty_print_logs=True ssl_certfile=None ssl_keyfile=None
 
-2. **Verify the** ``POST /echo/{customer_id}`` **Endpoint**:
+2. **Verify the** ``POST /echo/{customer_id}`` **Endpoint Works**:
 
    Open a new terminal and run the following command:
 
@@ -112,5 +112,5 @@ Run the Project
 Conclusion
 ----------
 
-You’ve now successfully set up a GitHub repository for your project using the **Cookiecutter template**.
+You’ve now successfully bootstraped your project using the **Cookiecutter template**.
 You installed `service-kit` via `pyproject.toml` using a GitHub link, modified `template_service.py`, and ran the project successfully with the "Hello-World" output.
