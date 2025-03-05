@@ -22,7 +22,6 @@ release = "0.0.0"
 extensions = [
     "sphinx.ext.autodoc",  # support for automatic documentation of docstrings
     "sphinx.ext.intersphinx",  # references to external documentation
-    "sphinx.ext.autosummary",
     "sphinx_rtd_theme",
     "myst_parser",
     "autoapi.extension",
