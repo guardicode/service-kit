@@ -21,6 +21,7 @@ errors.register_timeout_error_handler
 
 logging.handlers
 logging.log_exception_group
+logging.log_git_status
 logging.log_postgres_error
 logging.LogLevel.DEBUG
 logging.LogLevel.SUCCESS
