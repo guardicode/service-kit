@@ -1,12 +1,15 @@
+import shutil
 import subprocess
 
 from . import logger
+
+GIT = shutil.which("git")
 
 
 def _pwd_is_git_repository() -> bool:
     try:
         subprocess.run(
-            ["git", "rev-parse", "--is-inside-work-tree"],
+            [GIT, "rev-parse", "--is-inside-work-tree"],  # type: ignore[list-item]
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -19,7 +22,7 @@ def _pwd_is_git_repository() -> bool:
 
 def _get_commit_id():
     process = subprocess.run(
-        ["git", "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, text=True
+        [GIT, "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, text=True  # type: ignore[list-item]  # noqa: E501
     )
     return process.stdout.strip()
 
@@ -27,7 +30,7 @@ def _get_commit_id():
 def _get_repository_status():
     try:
         subprocess.run(
-            ["git", "diff-index", "--quiet", "HEAD"],
+            [GIT, "diff-index", "--quiet", "HEAD"],  # type: ignore[list-item]
             check=True,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -39,7 +42,7 @@ def _get_repository_status():
 
 def _get_tags():
     process = subprocess.run(
-        ["git", "tag", "--points-at", "HEAD"], check=True, stdout=subprocess.PIPE, text=True
+        [GIT, "tag", "--points-at", "HEAD"], check=True, stdout=subprocess.PIPE, text=True  # type: ignore[list-item]  # noqa: E501
     )
     tags = process.stdout.strip().split("\n")
     # Filter empty items to avoid empty strings
