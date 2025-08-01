@@ -6,6 +6,27 @@ from . import logger
 GIT = shutil.which("git")
 
 
+def log_git_status():
+    """
+    Log the status of the current git repository
+
+    Logs the commit ID, repository status (clean or dirty), and any tags
+    associated with the current HEAD at the INFO level.
+    """
+    if not _pwd_is_git_repository():
+        logger.warning(
+            "The current directory is not a Git repository so the running code cannot be "
+            "identified by a tag or commit ID."
+        )
+        return
+
+    commit_id = _get_commit_id()
+    status = _get_repository_status()
+    tags = _get_tags()
+
+    logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
+
+
 def _pwd_is_git_repository() -> bool:
     try:
         subprocess.run(
@@ -47,24 +68,3 @@ def _get_tags():
     tags = process.stdout.strip().split("\n")
     # Filter empty items to avoid empty strings
     return [tag for tag in tags if tag]
-
-
-def log_git_status():
-    """
-    Log the status of the current git repository
-
-    Logs the commit ID, repository status (clean or dirty), and any tags
-    associated with the current HEAD at the INFO level.
-    """
-    if not _pwd_is_git_repository():
-        logger.warning(
-            "The current directory is not a Git repository so the running code cannot be "
-            "identified by a tag or commit ID."
-        )
-        return
-
-    commit_id = _get_commit_id()
-    status = _get_repository_status()
-    tags = _get_tags()
-
-    logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
