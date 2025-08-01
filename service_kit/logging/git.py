@@ -1,30 +1,82 @@
 import shutil
 import subprocess
+from pathlib import Path
+
+import yaml
 
 from . import logger
 
 GIT = shutil.which("git")
 
 
-def log_git_status():
+def log_git_status(git_status_yaml_path: Path | None = None):
     """
     Log the status of the current git repository
 
-    Logs the commit ID, repository status (clean or dirty), and any tags
-    associated with the current HEAD at the INFO level.
-    """
-    if not _pwd_is_git_repository():
-        logger.warning(
-            "The current directory is not a Git repository so the running code cannot be "
-            "identified by a tag or commit ID."
-        )
-        return
+    Logs the commit ID, repository status (clean or dirty), and any tags associated with the current
+    HEAD at the INFO level. Optionally, this function accepts a path to a YAML file. If, and only
+    if, the current directory is not a git repository, or the `git` command is not available, the
+    status can be read from the YAML file instead. Note, however, that this function cannot
+    guarantee the accuracy of the information in the YAML file.
 
-    commit_id = _get_commit_id()
-    status = _get_repository_status()
-    tags = _get_tags()
+    Example YAML file:
+        commit: "3db2b4fbc9db2635b4ae6411496132f6d985426e"
+        status: "clean"
+        tags:
+        - test-tag
+
+    :param git_status_yaml_path: Optional path to a YAML file containing git status information.
+    """
+    if GIT is None or not _pwd_is_git_repository():
+        logger.warning(
+            "Status could not be determined using the `git` command: "
+            "Attempting to retrieve status from a file."
+        )
+        if not git_status_yaml_path:
+            logger.warning("No git status YAML file provided, skipping git status logging.")
+            return
+
+        commit_id, status, tags = _read_yaml_file(git_status_yaml_path)
+    else:
+        commit_id = _get_commit_id()
+        status = _get_repository_status()
+        tags = _get_tags()
 
     logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
+
+
+def _read_yaml_file(git_status_yaml_path: Path | None) -> tuple[str, str, list[str]]:
+    unknown_git_status: tuple[str, str, list[str]] = ("UNKNOWN", "UNKNOWN", [])
+
+    if not git_status_yaml_path:
+        logger.warning("No git status YAML file provided, returning unknown git status.")
+        return unknown_git_status
+
+    if not git_status_yaml_path.exists():
+        logger.warning(
+            "The provided git status YAML file does not exist.", path=git_status_yaml_path
+        )
+        return unknown_git_status
+
+    try:
+        with open(git_status_yaml_path, "r") as f:
+            git_status = yaml.safe_load(f)
+
+        return (git_status["commit"], git_status["status"], git_status["tags"])
+    except KeyError as err:
+        logger.warning(
+            "The provided git status YAML file is missing a required field.",
+            path=git_status_yaml_path,
+            field=str(err),
+        )
+        return unknown_git_status
+    except Exception as err:
+        logger.warning(
+            "Failed to read git status from YAML file",
+            path=git_status_yaml_path,
+            error=str(err),
+        )
+        return unknown_git_status
 
 
 def _pwd_is_git_repository() -> bool:
