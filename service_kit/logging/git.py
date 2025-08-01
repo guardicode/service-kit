@@ -118,5 +118,5 @@ def _get_tags():
         [GIT, "tag", "--points-at", "HEAD"], check=True, stdout=subprocess.PIPE, text=True  # type: ignore[list-item]  # noqa: E501
     )
     tags = process.stdout.strip().split("\n")
-    # Filter empty items to avoid empty strings
+
     return [tag for tag in tags if tag]
