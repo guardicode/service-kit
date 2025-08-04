@@ -45,12 +45,8 @@ def log_git_status(git_status_yaml_path: Path | None = None):
     logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
 
 
-def _read_yaml_file(git_status_yaml_path: Path | None) -> tuple[str, str, list[str]]:
+def _read_yaml_file(git_status_yaml_path: Path) -> tuple[str, str, list[str]]:
     unknown_git_status: tuple[str, str, list[str]] = ("UNKNOWN", "UNKNOWN", [])
-
-    if not git_status_yaml_path:
-        logger.warning("No git status YAML file provided, returning unknown git status.")
-        return unknown_git_status
 
     if not git_status_yaml_path.exists():
         logger.warning(
