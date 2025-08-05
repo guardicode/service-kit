@@ -7,3 +7,4 @@ from .error_logging import (
     log_postgres_error,
     log_structured_error,
 )
+from .git import log_git_status
