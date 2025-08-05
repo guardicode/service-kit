@@ -48,17 +48,16 @@ def log_git_status(git_status_yaml_path: Path | None = None):
 def _read_yaml_file(git_status_yaml_path: Path) -> tuple[str, str, list[str]]:
     unknown_git_status: tuple[str, str, list[str]] = ("UNKNOWN", "UNKNOWN", [])
 
-    if not git_status_yaml_path.exists():
-        logger.warning(
-            "The provided git status YAML file does not exist.", path=git_status_yaml_path
-        )
-        return unknown_git_status
-
     try:
         with open(git_status_yaml_path, "r") as f:
             git_status = yaml.safe_load(f)
 
         return (git_status["commit"], git_status["status"], git_status["tags"])
+    except FileNotFoundError:
+        logger.warning(
+            "The provided git status YAML file does not exist.", path=git_status_yaml_path
+        )
+        return unknown_git_status
     except KeyError as err:
         logger.warning(
             "The provided git status YAML file is missing a required field.",
