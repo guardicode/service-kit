@@ -27,15 +27,11 @@ def log_git_status(git_status_yaml_path: Path | None = None):
 
     :param git_status_yaml_path: Optional path to a YAML file containing git status information.
     """
-    if GIT is None or not _pwd_is_git_repository():
-        logger.warning(
-            "Status could not be determined using the `git` command: "
-            "Attempting to retrieve status from a file."
-        )
-        if not git_status_yaml_path:
-            logger.warning("No git status YAML file provided, skipping git status logging.")
-            return
-
+    if GIT is None:
+        logger.warning("Command `git` not found")
+        commit_id, status, tags = _read_yaml_file(git_status_yaml_path)
+    elif not _pwd_in_git_repository():
+        logger.warning("Failed to identify a git repository")
         commit_id, status, tags = _read_yaml_file(git_status_yaml_path)
     else:
         commit_id = _get_commit_id()
@@ -45,8 +41,14 @@ def log_git_status(git_status_yaml_path: Path | None = None):
     logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
 
 
-def _read_yaml_file(git_status_yaml_path: Path) -> tuple[str, str, list[str]]:
+def _read_yaml_file(git_status_yaml_path: Path | None) -> tuple[str, str, list[str]]:
     unknown_git_status: tuple[str, str, list[str]] = ("UNKNOWN", "UNKNOWN", [])
+
+    if git_status_yaml_path is None:
+        logger.info("No git status YAML file provided")
+        return unknown_git_status
+    else:
+        logger.info("Attempting to retrieve the git status from a file")
 
     try:
         with open(git_status_yaml_path, "r") as f:
@@ -74,7 +76,7 @@ def _read_yaml_file(git_status_yaml_path: Path) -> tuple[str, str, list[str]]:
         return unknown_git_status
 
 
-def _pwd_is_git_repository() -> bool:
+def _pwd_in_git_repository() -> bool:
     try:
         subprocess.run(
             [GIT, "rev-parse", "--is-inside-work-tree"],  # type: ignore[list-item]
