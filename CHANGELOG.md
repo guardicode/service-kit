@@ -6,6 +6,10 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
+## [1.4.0] - 2025-08-07
+### Added
+- Parent commit IDs to the log message produced by `log_git_status()`.
+
 ## [1.3.0] - 2025-08-05
 ### Added
 - `log_git_status()` function to service\_kit.logging.

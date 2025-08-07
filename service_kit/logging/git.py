@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+import warnings
 from pathlib import Path
 
 import yaml
@@ -13,14 +14,16 @@ def log_git_status(git_status_yaml_path: Path | None = None):
     """
     Log the status of the current git repository
 
-    Logs the commit ID, repository status (clean or dirty), and any tags associated with the current
-    HEAD at the INFO level. Optionally, this function accepts a path to a YAML file. If, and only
-    if, the current directory is not a git repository, or the `git` command is not available, the
-    status can be read from the YAML file instead. Note, however, that this function cannot
-    guarantee the accuracy of the information in the YAML file.
+    Logs the commit ID, parent commit IDs, repository status (clean or dirty), and any tags
+    associated with the current HEAD at the INFO level. Optionally, this function accepts a path
+    to a YAML file. If, and only if, the current directory is not a git repository, or the `git`
+    command is not available, the status can be read from the YAML file instead. Note, however,
+    that this function cannot guarantee the accuracy of the information in the YAML file.
 
     Example YAML file:
         commit: "3db2b4fbc9db2635b4ae6411496132f6d985426e"
+        parents:
+        - "1a2b3c4d5e6f7890abcdef1234567890abcdef12"
         status: "clean"
         tags:
         - test-tag
@@ -29,20 +32,34 @@ def log_git_status(git_status_yaml_path: Path | None = None):
     """
     if GIT is None:
         logger.warning("Command `git` not found")
-        commit_id, status, tags = _read_yaml_file(git_status_yaml_path)
+        commit_id, parents, status, tags = _read_yaml_file(git_status_yaml_path)
     elif not _pwd_in_git_repository():
         logger.warning("Failed to identify a git repository")
-        commit_id, status, tags = _read_yaml_file(git_status_yaml_path)
+        commit_id, parents, status, tags = _read_yaml_file(git_status_yaml_path)
     else:
         commit_id = _get_commit_id()
+        parents = _get_parents()
         status = _get_repository_status()
         tags = _get_tags()
 
-    logger.info("Identified the currently running code", commit=commit_id, status=status, tags=tags)
+    logger.info(
+        "Identified the currently running code",
+        commit=commit_id,
+        parents=parents,
+        status=status,
+        tags=tags,
+    )
 
 
-def _read_yaml_file(git_status_yaml_path: Path | None) -> tuple[str, str, list[str]]:
-    unknown_git_status: tuple[str, str, list[str]] = ("UNKNOWN", "UNKNOWN", [])
+def _read_yaml_file(
+    git_status_yaml_path: Path | None,
+) -> tuple[str, list[str], str, list[str]]:
+    unknown_git_status: tuple[str, list[str], str, list[str]] = (
+        "UNKNOWN",
+        ["UNKNOWN"],
+        "UNKNOWN",
+        [],
+    )
 
     if git_status_yaml_path is None:
         logger.info("No git status YAML file provided")
@@ -54,7 +71,22 @@ def _read_yaml_file(git_status_yaml_path: Path | None) -> tuple[str, str, list[s
         with open(git_status_yaml_path, "r") as f:
             git_status = yaml.safe_load(f)
 
-        return (git_status["commit"], git_status["status"], git_status["tags"])
+        if "parents" not in git_status:
+            warnings.warn(
+                (
+                    "The 'parents' field is missing from the git status YAML file. "
+                    "This field will be set to ['UNKNOWN']. This default value is "
+                    "deprecated and will be removed in v2.0.0 of Service-Kit."
+                ),
+                DeprecationWarning,
+            )
+
+        return (
+            git_status["commit"],
+            git_status.get("parents", ["UNKNOWN"]),
+            git_status["status"],
+            git_status["tags"],
+        )
     except FileNotFoundError:
         logger.warning(
             "The provided git status YAML file does not exist.", path=git_status_yaml_path
@@ -95,6 +127,21 @@ def _get_commit_id():
         [GIT, "rev-parse", "HEAD"], check=True, stdout=subprocess.PIPE, text=True  # type: ignore[list-item]  # noqa: E501
     )
     return process.stdout.strip()
+
+
+def _get_parents():
+    process = subprocess.run(
+        [GIT, "rev-list", "--parents", "-n", "1", "HEAD"],  # type: ignore[list-item]  # noqa: E501
+        check=True,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    commits = process.stdout.strip().split()
+
+    # The first commit in the output is the current commit, the rest are parents
+    parents = commits[1:] if len(commits) > 1 else []
+
+    return parents
 
 
 def _get_repository_status():

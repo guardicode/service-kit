@@ -19,7 +19,7 @@ dynamic = ["readme"]
 license = "GPLv3"
 name = "service-kit"
 requires-python = "^3.11"
-version = "v1.3.0"
+version = "v1.4.0"
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"]}
