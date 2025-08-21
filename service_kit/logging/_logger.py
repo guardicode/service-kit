@@ -166,4 +166,3 @@ def intercept_preconfigured_loggers(logger_names: Iterable[str]):
         third_party_logger = logging.getLogger(name)
         third_party_logger.handlers = [intercept_handler]
         third_party_logger.propagate = False
-        third_party_logger.propagate = False
