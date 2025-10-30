@@ -6,6 +6,10 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
+## [1.4.0.post1] - 2025-10-30
+### Changed
+- Allow use of ServiceKit with monkey-types 2.0.0.
+
 ## [1.4.0] - 2025-08-07
 ### Added
 - Parent commit IDs to the log message produced by `log_git_status()`.
