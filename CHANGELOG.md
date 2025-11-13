@@ -13,6 +13,7 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ### Changed
 - FastAPI, Uvicorn, and related dependencies are only installed if the \[api\]
   extra is specified.
+- RequestIDMiddleware to use UUIDv7 instead of ULID if UUIDv7 is available.
 
 
 ## [1.4.0.post1] - 2025-10-30
