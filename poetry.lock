@@ -2028,4 +2028,4 @@ psycopg = ["psycopg"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.11"
-content-hash = "1db55b48dd46fefa6b859f990832aeb73b17f8a41afc1520df5eb67c65a047cf"
+content-hash = "3ce35b57483d0aaafc932bf82bb048a2bd4715955e9422cde0de0e1f4e024e4c"

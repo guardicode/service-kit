@@ -91,7 +91,7 @@ autodoc-pydantic = "^2.2.0"
 types-pyyaml = "^6.0.12.20250516"
 
 [project.optional-dependencies]
-psycopg = ["psycopg"]
+psycopg = ["psycopg (>=3.2.4, <4.0.0)"]
 api = ["fastapi (>=0.115.6, <1.0.0)", "python-ulid (>=3.0.0, <4.0.0)", "uvicorn (>=0.34.0, <1.0.0)"]
 
 [build-system]
