@@ -10,6 +10,10 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ### Added
 - `service_kit.logging.intercept_uvicorn_loggers()`
 
+### Changed
+- FastAPI, Uvicorn, and related dependencies are only installed if the \[api\]
+  extra is specified.
+
 
 ## [1.4.0.post1] - 2025-10-30
 ### Changed
