@@ -59,7 +59,7 @@ Run the following commands to install the necessary prerequisites:
 
 ```bash
 $ pip install poetry pre-commit
-$ poetry install
+$ poetry install --all-extras
 $ pre-commit install -t pre-commit -t prepare-commit-msg
 ```
 
