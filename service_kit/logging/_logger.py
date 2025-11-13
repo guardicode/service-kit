@@ -6,6 +6,7 @@ import logging
 import os
 import sys
 from collections.abc import Iterable
+from contextlib import suppress
 from pathlib import Path
 from typing import Any
 
@@ -159,14 +160,12 @@ def intercept_uvicorn_loggers():
     Note: Calling this is unnecessary if the logger has been configured with
           configure_logger(), as it already calls this function.
     """
-    try:
+    with suppress(ImportError):
         import uvicorn  # noqa: F401
 
         intercept_preconfigured_loggers(
             ("uvicorn", "uvicorn.access", "uvicorn.asgi", "uvicorn.error")
         )
-    except ImportError:
-        pass
 
 
 def intercept_preconfigured_loggers(logger_names: Iterable[str]):
