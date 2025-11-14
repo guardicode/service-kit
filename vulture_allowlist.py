@@ -1,4 +1,5 @@
 from service_kit import api, base_model, configuration, errors, logging, testing
+from service_kit.utils import Timer
 
 api.RequestIDMiddleware.dispatch
 api.RequestLogMiddleware.dispatch
@@ -33,3 +34,5 @@ logging.SecurityRisk.HIGH
 testing.request_id
 testing.args
 testing.configure_test_logger
+
+Timer
