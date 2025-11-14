@@ -6,6 +6,7 @@ import logging
 import os
 import sys
 from collections.abc import Iterable
+from contextlib import suppress
 from pathlib import Path
 from typing import Any
 
@@ -138,7 +139,7 @@ def configure_logger(
             opener=lambda path, flags: os.open(path, flags, 0o600),
         )
 
-    intercept_preconfigured_loggers(("uvicorn", "uvicorn.access", "uvicorn.asgi", "uvicorn.error"))
+    intercept_uvicorn_loggers()
 
 
 def _create_log_directory(log_directory: Path):
@@ -146,6 +147,25 @@ def _create_log_directory(log_directory: Path):
         log_directory.mkdir(parents=True)
     elif not log_directory.is_dir():
         raise ValueError(f"{log_directory} is not a directory")
+
+
+def intercept_uvicorn_loggers():
+    """
+    Configure uvicorn to use the correct logger
+
+    Uvicorn forks and configures logging on startup. As a result, its loggers
+    need to be intercepted in order to capture uvicorn's log messages in all of
+    our sinks and in our desired format.
+
+    Note: Calling this is unnecessary if the logger has been configured with
+          configure_logger(), as it already calls this function.
+    """
+    with suppress(ImportError):
+        import uvicorn  # noqa: F401
+
+        intercept_preconfigured_loggers(
+            ("uvicorn", "uvicorn.access", "uvicorn.asgi", "uvicorn.error")
+        )
 
 
 def intercept_preconfigured_loggers(logger_names: Iterable[str]):
