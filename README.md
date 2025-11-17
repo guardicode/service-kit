@@ -24,7 +24,6 @@ configuration that can be easily extended.
 - **configuration**: Provides models, types, and utilities for configuring a service
 - **errors**: Enables exceptions using structured errors
 - **logging**: Provides a logger that enables structured logging
-- **testing**: Provides useful pytest fixtures
 
 
 ## Getting started
