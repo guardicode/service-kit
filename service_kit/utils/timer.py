@@ -47,9 +47,9 @@ class Timer:
         return self
 
     def __exit__(self, _exc_type, _exc_value, _traceback):
-        self._elapsed = self._get_time() - self._start
+        elapsed = self._get_time() - self._start
 
-        self._log_elapsed(self._elapsed)
+        self._log_elapsed(elapsed)
 
     def __call__(self, fn: Callable):
         def _inner(*args, **kwargs) -> Any:
