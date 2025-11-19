@@ -1,3 +1,20 @@
+def require_extra(extra_name: str, deps: list[str]) -> None:
+    missing = []
+    for dep in deps:
+        try:
+            __import__(dep)
+        except ImportError:
+            missing.append(dep)
+    if missing:
+        raise ImportError(
+            f"The '{extra_name}' extra is required in order to use '{__package__}'. "
+            f"Install with:\n\n    pip install service-kit[{extra_name}]\n\n"
+            f"Missing: {', '.join(missing)}"
+        )
+
+
+require_extra("api", ["fastapi", "ulid", "uvicorn"])
+
 from .types import RequestID
 from .responses import (
     APIResponse,

@@ -24,7 +24,6 @@ configuration that can be easily extended.
 - **configuration**: Provides models, types, and utilities for configuring a service
 - **errors**: Enables exceptions using structured errors
 - **logging**: Provides a logger that enables structured logging
-- **testing**: Provides useful pytest fixtures
 
 
 ## Getting started
@@ -43,6 +42,28 @@ or by using pip:
 $ pip install git+https://github.com/guardicode/service-kit.git
 ```
 
+#### Extras
+
+Service-Kit contains some functionality that is only available if extras are
+installed.
+
+- `service_kit.logging.log_postgres_error()` is only available if Service-Kit
+  is installed with the `[psycopg]` extra.
+- `service_kit.api` is only available if Serivce-Kit is installed with the
+  `[api]` extra.
+
+When installing with Poetry, this looks like:
+
+```bash
+$ poetry add --extras=api --extras=psycopg git+https://github.com/guardicode/service-kit.git
+```
+
+or with pip:
+
+```bash
+$ pip install git+https://github.com/guardicode/service-kit.git#egg=service-kit[api,psycopg]
+```
+
 ### Usage
 
 After installation, you can start using Service-Kit like any other Python package.
@@ -59,7 +80,7 @@ Run the following commands to install the necessary prerequisites:
 
 ```bash
 $ pip install poetry pre-commit
-$ poetry install
+$ poetry install --all-extras
 $ pre-commit install -t pre-commit -t prepare-commit-msg
 ```
 

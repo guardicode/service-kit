@@ -6,7 +6,9 @@ show-source = True
 max-complexity = 10
 max-line-length = 100
 per-file-ignores =
-    __init__.py:F401
+    __init__.py: F401
+
+    service_kit/api/__init__.py: F401, E402
 
 ### ignore "whitespace before ':'", "line break before binary operator" for
 ### compatibility with black, and cyclomatic complexity (for now).

@@ -1,4 +1,5 @@
 from typing import TypeAlias
+
 from monkeytypes import NetworkPort as _NetworkPort
 
 NetworkPort: TypeAlias = _NetworkPort

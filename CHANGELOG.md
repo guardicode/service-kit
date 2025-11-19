@@ -6,6 +6,19 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
+## [2.0.0] - 2025-11-19
+### Added
+- `service_kit.logging.intercept_uvicorn_loggers()`
+- `service_kit.utils.Timer`
+
+### Changed
+- FastAPI, Uvicorn, and related dependencies are only installed if the \[api\]
+  extra is specified.
+- RequestIDMiddleware to use UUIDv7 instead of ULID if UUIDv7 is available.
+- `service_kit.testing` has been split into `service_kit.api.testing` and
+  `service_kit.logging.testing`.
+
+
 ## [1.4.0.post1] - 2025-10-30
 ### Changed
 - Allow use of ServiceKit with monkey-types 2.0.0.
