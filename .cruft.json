@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/guardicode/infection-monkey-cookiecutter",
-  "commit": "57067c8cf57ef8943a13be8ed12c6e0ef06e3154",
+  "commit": "10c4e892e15360964daec716e38f19c9baaf220d",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -12,7 +12,7 @@
       "platform": "github",
       "org": "guardicode",
       "url": "https://github.com/guardicode/service-kit",
-      "__year": "2025",
+      "__year": "2026",
       "license": "GPLv3",
       "versioning_scheme": "PEP440",
       "project_short_description": "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain services",
@@ -21,13 +21,14 @@
       "support_type_checking": true,
       "hook_shellcheck": false,
       "exclude_these_file_in_flake8": "vulture_allowlist.py",
-      "_black_version": "24.3.0",
-      "_dlint_version": "0.14.1",
-      "_flake8_version": "7.1.1",
-      "_isort_version": "5.12.0",
-      "_mypy_version": "1.11.1",
-      "_vulture_version": "2.9.1",
-      "_template": "https://github.com/guardicode/infection-monkey-cookiecutter"
+      "_black_version": "25.12.0",
+      "_dlint_version": "0.15.0",
+      "_flake8_version": "7.3.0",
+      "_isort_version": "7.0.0",
+      "_mypy_version": "1.19.0",
+      "_vulture_version": "2.13",
+      "_template": "https://github.com/guardicode/infection-monkey-cookiecutter",
+      "_commit": "10c4e892e15360964daec716e38f19c9baaf220d"
     }
   },
   "directory": null

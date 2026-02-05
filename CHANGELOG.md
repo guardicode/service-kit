@@ -9,6 +9,9 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ## [2.0.1] - 2025-02-05
 ### Changed
 - Module exports to comply with the latest guidance from typing.python.org.
+### Fixed
+- All dependency specifications to be PEP 508 compliant.
+
 ## [2.0.0] - 2025-11-19
 ### Added
 - `service_kit.logging.intercept_uvicorn_loggers()`
