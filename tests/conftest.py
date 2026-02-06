@@ -2,8 +2,8 @@ from collections.abc import Iterable, Sequence
 
 import pytest
 
-from service_kit.logging.testing import configure_test_logger  # noqa: F401
 from service_kit.api.testing import request_id  # noqa: F401
+from service_kit.logging.testing import configure_test_logger  # noqa: F401
 
 
 def pytest_addoption(parser):

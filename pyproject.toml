@@ -15,8 +15,8 @@ description = "A collection of functions and objects that help the Monkey team b
 dynamic = ["readme"]
 license = "GPLv3"
 name = "service-kit"
-requires-python = "^3.11"
-version = "v2.0.0"
+requires-python = ">=3.11, <4.0"
+version = "v2.0.1"
 
 [tool.setuptools.dynamic]
 readme = {file = ["README.md"]}
@@ -24,21 +24,20 @@ readme = {file = ["README.md"]}
 [project.urls]
 Repository = "https://github.com/guardicode/service-kit"
 
-
 [tool.black]
 line-length = 100
 exclude = "template_service.py"
 
 [tool.cruft]
 skip = [
-    "service-kit/__init__.py",
+    "service_kit/__init__.py",
     "README.md",
     "CHANGELOG.md",
     "vulture_allowlist.py"
 ]
 
 [tool.isort]
-known_first_party = "service-kit"
+known_first_party = "service_kit"
 line_length = 100
 skip_glob="**/__init__.py"
 ### for compatibility with black
@@ -68,27 +67,27 @@ paths = ["service_kit", "vulture_allowlist.py"]
 include = ["CHANGELOG.md", "README.md"]
 
 [tool.poetry.group.dev.dependencies]
-black = "24.3.0"
-dlint = "0.14.1"
-flake8 = "7.1.1"
-isort = "5.12.0"
-mypy = "1.11.1"
-pudb = "^2022.1.2"
-pynvim = "^0.4.3"
-pytest = "^7.1.0"
-pytest-cov = "^3.0.0"
-pytest-xdist = "^3.3.1"
-vulture = "2.9.1"
-httpx = "^0.28.1"
-jinja2 = "^3.1.5"
-requests = "^2.32.3"
-sphinx = "^8.2.1"
-sphinx-autodoc-typehints = "^3.1.0"
-sphinx-rtd-theme = "^3.0.2"
-myst-parser = "^4.0.1"
-sphinx-autoapi = "^3.6.0"
-autodoc-pydantic = "^2.2.0"
-types-pyyaml = "^6.0.12.20250516"
+black = "25.12.0"
+dlint = "0.15.0"
+flake8 = "7.3.0"
+isort = "7.0.0"
+mypy = "1.19.0"
+pudb = ">=2025.1.5"
+pynvim = ">=0.4.3, <1.0.0"
+pytest = ">=7.1.0, <8.0.0"
+pytest-cov = ">=3.0.0 <4.0.0"
+pytest-xdist = ">=3.3.1"
+vulture = "2.13"
+httpx = ">=0.28.1, <1.0.0"
+jinja2 = ">=3.1.5, <4.0.0"
+requests = ">=2.32.3, <3.0.0"
+sphinx = ">=8.2.1, <9.0.0"
+sphinx-autodoc-typehints = ">=3.1.0, <4.0.0"
+sphinx-rtd-theme = ">=3.0.2, <4.0.0"
+myst-parser = ">=4.0.1, <5.0.0"
+sphinx-autoapi = ">=3.6.0, <4.0.0"
+autodoc-pydantic = ">=2.2.0, <3.0.0"
+types-pyyaml = ">=6.0.12.20250516, <7.0.0"
 
 [project.optional-dependencies]
 psycopg = ["psycopg (>=3.2.4, <4.0.0)"]

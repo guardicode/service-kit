@@ -76,7 +76,7 @@ def _read_yaml_file(
                 (
                     "The 'parents' field is missing from the git status YAML file. "
                     "This field will be set to ['UNKNOWN']. This default value is "
-                    "deprecated and will be removed in v2.0.0 of Service-Kit."
+                    "deprecated and will be removed in v3.0.0 of Service-Kit."
                 ),
                 DeprecationWarning,
             )

@@ -1,1 +1,1 @@
-from .fixtures import configure_test_logger
+from .fixtures import configure_test_logger as configure_test_logger
