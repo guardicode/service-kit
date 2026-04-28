@@ -11,7 +11,7 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ### Added
 - `service-kit.feature_flag.FeatureFlag` pydantic type. OCPSG-950
 
-## [2.0.1] - 2025-02-05
+## [2.0.1] - 2026-02-05
 ### Changed
 - Module exports to comply with the latest guidance from typing.python.org.
 ### Fixed
