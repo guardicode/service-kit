@@ -7,13 +7,21 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## Unreleased
+# Added
+# Changed
+# Deprecated
+# Removed
+# Fixed
+# Security
 
+## [2.1.0] - 2026-04-05
 ### Added
-- `service-kit.feature_flag.FeatureFlag` pydantic type. OCPSG-950
+- `service_kit.configuration.FeatureFlag` pydantic type.
 
-## [2.0.1] - 2025-02-05
+## [2.0.1] - 2026-02-05
 ### Changed
 - Module exports to comply with the latest guidance from typing.python.org.
+
 ### Fixed
 - All dependency specifications to be PEP 508 compliant.
 

@@ -1,4 +1,5 @@
 from .service_configuration import ServiceConfiguration as ServiceConfiguration
+from .feature_flag import FeatureFlag as FeatureFlag
 from .utils import (
     coerce_to_tuple as coerce_to_tuple,
     parse_comma_separated_sequence as parse_comma_separated_sequence,
