@@ -1,7 +1,7 @@
 import pytest
 
 from service_kit import ServiceKitBaseModel
-from service_kit.feature_flag import FeatureFlag
+from service_kit.configuration import FeatureFlag
 
 
 class FeatureFlags(ServiceKitBaseModel):
