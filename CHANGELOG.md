@@ -6,13 +6,19 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
-## Unreleased
-# Added
-# Changed
-# Deprecated
-# Removed
-# Fixed
-# Security
+## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
+## [2.2.0] - 2026-07-01
+### Added
+- `log_python_version()`
+- `log_startup_information()` -- a shortcut for logging both the Python version
+  and git status.
 
 ## [2.1.0] - 2026-04-05
 ### Added
