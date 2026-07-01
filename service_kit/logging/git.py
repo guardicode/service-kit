@@ -2,12 +2,13 @@ import shutil
 import subprocess
 import warnings
 from pathlib import Path
+from typing import Final
 
 import yaml
 
 from . import logger
 
-GIT = shutil.which("git")
+GIT: Final[str | None] = shutil.which("git")
 
 
 def log_git_status(git_status_yaml_path: Path | None = None):
