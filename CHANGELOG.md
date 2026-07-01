@@ -9,6 +9,8 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ## Unreleased
 # Added
 - `log_python_version()`
+- `log_startup_information()` -- a shortcut for logging both the Python version
+  and git status.
 
 # Changed
 # Deprecated

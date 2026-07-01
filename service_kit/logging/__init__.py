@@ -13,4 +13,7 @@ from .error_logging import (
     log_structured_error as log_structured_error,
 )
 from .git import log_git_status as log_git_status
-from .startup import log_python_version as log_python_version
+from .startup import (
+    log_python_version as log_python_version,
+    log_startup_information as log_startup_information,
+)
