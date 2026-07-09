@@ -36,4 +36,4 @@ from .error_handling import (
 )
 from .request_id_middleware import RequestIDMiddleware as RequestIDMiddleware
 from .request_log_middleware import RequestLogMiddleware as RequestLogMiddleware
-from .api_utils import bootstrap_logging, launch_uvicorn as launch_uvicorn
+from .api_utils import bootstrap_logging as bootstrap_logging, launch_uvicorn as launch_uvicorn
