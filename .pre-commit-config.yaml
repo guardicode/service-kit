@@ -50,6 +50,6 @@ repos:
     hooks:
       - id: vulture
   - repo: https://github.com/mssalvatore/changelog-formatter-commit-hook
-    rev: v1.0.1
+    rev: v1.0.2
     hooks:
       - id: changelog-formatter
