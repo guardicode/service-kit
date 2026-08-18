@@ -9,6 +9,8 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
+- `sort_fields` parameter to logging.configure_logger()
+
 ### Changed
 - Leave structured log fields unsorted by default. This allows for a more
   natural ordering of fields. Fields can still be sorted by passing the
