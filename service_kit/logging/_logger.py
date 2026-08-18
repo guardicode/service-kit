@@ -8,7 +8,8 @@ import sys
 from collections.abc import Iterable
 from contextlib import suppress
 from pathlib import Path
-from typing import Any
+from types import MappingProxyType as ImmutableMapping
+from typing import Any, Mapping
 
 import loguru
 from loguru import logger as _logger
@@ -105,6 +106,7 @@ def configure_logger(
     pretty_print_logs: bool,
     log_file_prefix: str | None = None,
     sort_fields: bool = False,
+    extra: Mapping[str, Any] = ImmutableMapping({}),
 ):
     """
     Configures the service's structured logger
@@ -118,9 +120,11 @@ def configure_logger(
                             that are created (default: None)
     :param sort_fields: Whether or not to sort the fields alphabetically in the log messages
                         (default: False)
+    :param extra: A mapping containing any extra fields that should be bound to the logger.
     """
     serializer.set_pretty_print(pretty_print_logs)
     serializer.set_sort_fields(sort_fields)
+    logger.configure(extra=extra)
 
     # Remove default logger before adding new handlers.
     logger.remove()
