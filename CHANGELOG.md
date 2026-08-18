@@ -6,14 +6,19 @@ The format is based on [Keep a
 Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
+
 ## [Unreleased]
 ### Added
 ### Changed
-- Leave structured log fields unsorted by default. This allows for a more natural ordering of fields. Fields can still be sorted by passing the  `sort_fields=True` parameter to `logging.configure_logger()`
+- Leave structured log fields unsorted by default. This allows for a more
+  natural ordering of fields. Fields can still be sorted by passing the
+  `sort_fields=True` parameter to `logging.configure_logger()`.
+
 ### Deprecated
 ### Fixed
 ### Removed
 ### Security
+
 
 ## [2.2.0] - 2026-07-01
 ### Added
@@ -21,9 +26,11 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 - `log_startup_information()` -- a shortcut for logging both the Python version
   and git status.
 
+
 ## [2.1.0] - 2026-04-05
 ### Added
 - `service_kit.configuration.FeatureFlag` pydantic type.
+
 
 ## [2.0.1] - 2026-02-05
 ### Changed
@@ -31,6 +38,7 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ### Fixed
 - All dependency specifications to be PEP 508 compliant.
+
 
 ## [2.0.0] - 2025-11-19
 ### Added
@@ -49,17 +57,21 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ### Changed
 - Allow use of ServiceKit with monkey-types 2.0.0.
 
+
 ## [1.4.0] - 2025-08-07
 ### Added
 - Parent commit IDs to the log message produced by `log_git_status()`.
+
 
 ## [1.3.0] - 2025-08-05
 ### Added
 - `log_git_status()` function to service\_kit.logging.
 
+
 ## [1.2.0.post1] - 2025-03-05
 ### Added
 - Documentation generated with Sphinx.
+
 
 ## [1.2.0] - 2025-02-21
 ### Added
