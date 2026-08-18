@@ -18,6 +18,9 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
   `sort_fields=True` parameter to `logging.configure_logger()`.
 
 ### Deprecated
+- "UNKNOWN" as parent commit value when parent commits are not provided to
+  `log_git_status()`.
+
 ### Fixed
 ### Removed
 ### Security
