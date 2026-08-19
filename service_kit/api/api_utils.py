@@ -24,7 +24,7 @@ async def bootstrap_logging(
     """
     configure_logger(config.log_level, config.log_directory, config.pretty_print_logs, extra=extra)
     logger.info("Logger configured.")
-    logger.info("Current configuration", **config.to_json_dict())
+    logger.info("Service configuration", config=config)
 
     if config.debug:
         logger.warning(
