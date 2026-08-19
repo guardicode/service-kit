@@ -1,7 +1,6 @@
 import json
 
-from service_kit.logging import configure_logger
-from service_kit.logging._logger import logger
+from service_kit.logging import configure_logger, logger
 
 
 def _capture_log_record(**extra_fields) -> dict:
@@ -36,3 +35,14 @@ def test_sort_fields_disabled_preserves_insertion_order():
 
     assert keys.index("zebra") < keys.index("apple")
     assert list(keys) != sorted(keys)
+
+
+def test_configure_extra():
+    extra = {"extra_1": 42, "extra2": "6-7!!!"}
+    configure_logger(log_level=5000, log_directory=None, pretty_print_logs=False, extra=extra)
+
+    data = _capture_log_record(zebra=1, apple=2)
+
+    # Verifies all extras are included in the log
+    intersection = {k: data[k] for k in data.keys() & extra.keys()}
+    assert intersection == extra

@@ -9,7 +9,17 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
-- `sort_fields` parameter to logging.configure_logger()
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
+
+## [2.3.0] - 2026-08-18
+### Added
+- `sort_fields` parameter to `logging.configure_logger()`.
+- `extra` parameter to `logging.configure_logger()`.
 
 ### Changed
 - Leave structured log fields unsorted by default. This allows for a more
@@ -17,9 +27,8 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
   `sort_fields=True` parameter to `logging.configure_logger()`.
 
 ### Deprecated
-### Fixed
-### Removed
-### Security
+- "UNKNOWN" as parent commit value when parent commits are not provided to
+  `log_git_status()`.
 
 
 ## [2.2.0] - 2026-07-01
