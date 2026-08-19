@@ -9,6 +9,8 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
+- `extra` parameter to `api.bootstrap_logging()`.
+
 ### Changed
 ### Deprecated
 ### Fixed

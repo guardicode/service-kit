@@ -1,4 +1,7 @@
+from collections.abc import Mapping
 from pathlib import Path
+from types import MappingProxyType as ImmutableMapping
+from typing import Any
 
 import uvicorn
 from fastapi import FastAPI
@@ -9,14 +12,17 @@ from service_kit.logging import SecurityRisk, configure_logger, logger
 from . import RequestLogMiddleware
 
 
-async def bootstrap_logging(app: FastAPI, config: ServiceConfiguration):
+async def bootstrap_logging(
+    app: FastAPI, config: ServiceConfiguration, extra: Mapping[str, Any] = ImmutableMapping({})
+):
     """
     Configures the logger and log-related middleware for the API
 
     :param app: The server's FastAPI instance
     :param config: The server's configuration
+    :param extra: A mapping containing any extra fields that should be bound to the logger.
     """
-    configure_logger(config.log_level, config.log_directory, config.pretty_print_logs)
+    configure_logger(config.log_level, config.log_directory, config.pretty_print_logs, extra=extra)
     logger.info("Logger configured.")
     logger.info("Current configuration", **config.to_json_dict())
 
