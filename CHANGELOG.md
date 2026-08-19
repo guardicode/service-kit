@@ -9,16 +9,20 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
+
+## [2.4.0] - 2026-08-19
+### Added
 - `extra` parameter to `api.bootstrap_logging()`.
 
 ### Changed
 - Logging of the `ServiceConfiguration` in `bootstrap_logging()` to have a
   better structure.
-
-### Deprecated
-### Fixed
-### Removed
-### Security
 
 
 ## [2.3.0] - 2026-08-18
