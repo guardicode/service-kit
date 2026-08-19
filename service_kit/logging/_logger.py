@@ -5,11 +5,11 @@ import json
 import logging
 import os
 import sys
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from contextlib import suppress
 from pathlib import Path
 from types import MappingProxyType as ImmutableMapping
-from typing import Any, Mapping
+from typing import Any
 
 import loguru
 from loguru import logger as _logger
