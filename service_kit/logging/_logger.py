@@ -44,6 +44,7 @@ class InterceptHandler(logging.Handler):
 class Serializer:
     def __init__(self, colorize: bool):
         self._indent: int | None = None
+        self._sort_fields = False
         self._colorize = colorize
         self._lexer = JsonLexer()
         self._formatter = TerminalTrueColorFormatter(style="rrt")
@@ -52,6 +53,9 @@ class Serializer:
         # A separate method to set this is needed as this option is not configured until after the
         # configuration file has been read, which is also after the logger has been imported.
         self._indent = 4 if pretty_print_logs else None
+
+    def set_sort_fields(self, sort_fields: bool):
+        self._sort_fields = sort_fields
 
     def __call__(self, record: loguru.Record):
         subset = {
@@ -73,7 +77,10 @@ class Serializer:
 
     def _serialize_json(self, subset: dict[str, Any]) -> str:
         return json.dumps(
-            subset, indent=self._indent, sort_keys=True, default=self._default_serializer
+            subset,
+            indent=self._indent,
+            sort_keys=self._sort_fields,
+            default=self._default_serializer,
         )
 
     @staticmethod
@@ -97,6 +104,7 @@ def configure_logger(
     log_directory: Path | None,
     pretty_print_logs: bool,
     log_file_prefix: str | None = None,
+    sort_fields: bool = False,
 ):
     """
     Configures the service's structured logger
@@ -108,8 +116,11 @@ def configure_logger(
     :param pretty_print_logs: Whether or not to pretty-print logs
     :param log_file_prefix: A string that will be prepended to any log files
                             that are created (default: None)
+    :param sort_fields: Whether or not to sort the fields alphabetically in the log messages
+                        (default: False)
     """
     serializer.set_pretty_print(pretty_print_logs)
+    serializer.set_sort_fields(sort_fields)
 
     # Remove default logger before adding new handlers.
     logger.remove()
