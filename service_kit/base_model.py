@@ -7,6 +7,11 @@ from pydantic import ValidationError
 
 
 class ServiceKitBaseModel(InfectionMonkeyBaseModel):
+    # As a default behavior we want to hide the input data in the error messages.
+    # This is because the input data may contain sensitive information
+    # that should not be exposed in error messages.
+    model_config = {**InfectionMonkeyBaseModel.model_config, "hide_input_in_errors": True}
+
     def __setattr__(self, name: str, value: Any):
         # This method overrides InfectionMonkeyBaseModel.__setattr__().
         #  See the comments in _raise_type_or_value_error() for more details.
@@ -37,4 +42,4 @@ class ServiceKitBaseModel(InfectionMonkeyBaseModel):
 
 
 class MutableServiceKitBaseModel(ServiceKitBaseModel):
-    model_config = MutableModelConfig
+    model_config = {**MutableModelConfig, "hide_input_in_errors": True}

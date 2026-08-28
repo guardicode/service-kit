@@ -12,6 +12,10 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ### Changed
 ### Deprecated
 ### Fixed
+- A bug in pydantic(https://github.com/pydantic/pydantic/issues/9139) causes
+  `SecretString` to still be logged plaintext in case of a validation error.
+  This bug is circumvented by hiding all input in validation errors by default.
+
 ### Removed
 ### Security
 
