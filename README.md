@@ -33,13 +33,13 @@ configuration that can be easily extended.
 You can install Service-Kit using [poetry](https://python-poetry.org/):
 
 ```bash
-$ poetry add git+https://github.com/guardicode/service-kit.git
+$ poetry add monkey-service-kit
 ```
 
 or by using pip:
 
 ```bash
-$ pip install git+https://github.com/guardicode/service-kit.git
+$ pip install monkey-service-kit
 ```
 
 #### Extras
@@ -55,13 +55,13 @@ installed.
 When installing with Poetry, this looks like:
 
 ```bash
-$ poetry add --extras=api --extras=psycopg git+https://github.com/guardicode/service-kit.git
+$ poetry add monkey-service-kit[api,psycopg]
 ```
 
 or with pip:
 
 ```bash
-$ pip install git+https://github.com/guardicode/service-kit.git#egg=service-kit[api,psycopg]
+$ pip install monkey-service-kit[api,psycopg]
 ```
 
 ### Usage
