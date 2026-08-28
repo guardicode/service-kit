@@ -10,6 +10,8 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ## [Unreleased]
 ### Added
 ### Changed
+- Package name to `monkey-service-kit`, as `service-kit` its rejected by PyPI.
+
 ### Deprecated
 ### Fixed
 ### Removed
