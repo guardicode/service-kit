@@ -64,6 +64,7 @@ exclude=[]
 paths = ["service_kit", "vulture_allowlist.py"]
 
 [tool.poetry]
+readme = "README.md"
 include = ["CHANGELOG.md", "README.md"]
 packages = [{include = "service_kit"}]
 
