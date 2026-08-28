@@ -10,11 +10,16 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 ## [Unreleased]
 ### Added
 ### Changed
-- Package name to `monkey-service-kit`, as `service-kit` its rejected by PyPI.
-
 ### Deprecated
 ### Fixed
 ### Removed
+### Security
+
+
+## [2.4.1] - 2026-08-28
+### Changed
+- Package name to `monkey-service-kit`, as `service-kit` its rejected by PyPI.
+
 ### Security
 - A bug in pydantic(https://github.com/pydantic/pydantic/issues/9139) causes
   `SecretString` to still be logged plaintext in case of a validation error.
