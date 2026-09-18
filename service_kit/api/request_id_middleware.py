@@ -6,6 +6,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from . import RequestID
 
 REQUEST_ID_HEADER: Final[str] = "x-request-id"
+CORRELATION_ID_HEADER: Final[str] = "x-correlation-id"
 
 try:
     # UUIDv7 is available in Python 3.14+ and should be preferred over ULID
@@ -27,10 +28,16 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Response]
     ) -> Response:
+        # Note that neither the request ID nor the correlation ID may be empty strings.
         if request.headers.get(REQUEST_ID_HEADER, "").strip():
             request.state.id = request.headers[REQUEST_ID_HEADER]
         else:
             request.state.id = self._generate_request_id()
+
+        if request.headers.get(CORRELATION_ID_HEADER):
+            request.state.correlation_id = request.headers[CORRELATION_ID_HEADER]
+        else:
+            request.state.correlation_id = None
 
         return await call_next(request)
 

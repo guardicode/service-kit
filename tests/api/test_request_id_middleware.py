@@ -7,7 +7,7 @@ from starlette.datastructures import Headers, State
 from ulid import ULID
 
 from service_kit.api import RequestID, RequestIDMiddleware
-from service_kit.api.request_id_middleware import REQUEST_ID_HEADER
+from service_kit.api.request_id_middleware import CORRELATION_ID_HEADER, REQUEST_ID_HEADER
 
 
 @pytest.fixture(scope="session")
@@ -71,3 +71,27 @@ async def test_whitespace_only_request_id(whitespace_request_id: RequestID):
     await middleware.dispatch(request, AsyncMock())
 
     assert _is_valid_id(request.state.id)
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "correlation_id_header",
+    [CORRELATION_ID_HEADER, CORRELATION_ID_HEADER.upper(), CORRELATION_ID_HEADER.lower()],
+)
+async def test_uses_correlation_id_header_when_present(correlation_id_header: str):
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={correlation_id_header: "client-provided-id"})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.correlation_id == "client-provided-id"
+
+
+@pytest.mark.anyio
+async def test_uses_correlation_id_is_None_when_header_absent():
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request()
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.correlation_id is None
