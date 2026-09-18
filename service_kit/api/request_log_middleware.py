@@ -11,7 +11,11 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
     debug: bool = False
 
     async def dispatch(self, request, call_next):
-        with logger.contextualize(request_id=request.state.id):
+        correlation_id_log_context = (
+            {"correlation_id": request.state.correlation_id} if request.state.correlation_id else {}
+        )
+
+        with logger.contextualize(request_id=request.state.id, **correlation_id_log_context):
             await RequestLogMiddleware.log_request(request)
             response = await call_next(request)
             await RequestLogMiddleware.log_response(response)
