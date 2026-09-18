@@ -7,6 +7,7 @@ from starlette.datastructures import Headers, State
 from ulid import ULID
 
 from service_kit.api import RequestID, RequestIDMiddleware
+from service_kit.api.request_id_middleware import REQUEST_ID_HEADER
 
 
 @pytest.fixture(scope="session")
@@ -37,10 +38,23 @@ def _is_valid_id(value: RequestID) -> bool:
 
 
 @pytest.mark.anyio
-async def test_adds_request_id_to_state():
+async def test_generates_request_id_when_header_absent():
     middleware = RequestIDMiddleware(app=MagicMock())
     request = make_request()
 
     await middleware.dispatch(request, AsyncMock())
 
     assert _is_valid_id(request.state.id)
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "request_id_header", [REQUEST_ID_HEADER, REQUEST_ID_HEADER.upper(), REQUEST_ID_HEADER.lower()]
+)
+async def test_uses_request_id_header_when_present(request_id_header: str):
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={request_id_header: "client-provided-id"})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.id == "client-provided-id"

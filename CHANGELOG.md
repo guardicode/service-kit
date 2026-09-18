@@ -9,6 +9,10 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
+- Support for X-REQUEST-ID header. If specified in an API request, the
+  RequestIDMiddleware will use the header value instead of generating a
+  ULID/UUID7.
+
 ### Changed
 ### Deprecated
 ### Fixed

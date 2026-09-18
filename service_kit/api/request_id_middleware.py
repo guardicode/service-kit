@@ -1,9 +1,11 @@
-from typing import Callable
+from typing import Callable, Final
 
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from . import RequestID
+
+REQUEST_ID_HEADER: Final[str] = "x-request-id"
 
 try:
     # UUIDv7 is available in Python 3.14+ and should be preferred over ULID
@@ -25,7 +27,11 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Response]
     ) -> Response:
-        request.state.id = self._generate_request_id()
+        if request.headers.get(REQUEST_ID_HEADER):
+            request.state.id = request.headers[REQUEST_ID_HEADER]
+        else:
+            request.state.id = self._generate_request_id()
+
         return await call_next(request)
 
     @staticmethod
