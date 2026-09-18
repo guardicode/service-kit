@@ -25,6 +25,18 @@ except ImportError:
 
 
 class RequestIDMiddleware(BaseHTTPMiddleware):
+    """Middleware that assigns a unique request ID and optional correlation ID to each request.
+
+    Reads the ``x-request-id`` header if present; otherwise generates a new time-ordered ID
+    (UUIDv7 on Python 3.14+, ULID on earlier versions) and stores it in ``request.state.id``.
+
+    Reads the ``x-correlation-id`` header if present and stores it in
+    ``request.state.correlation_id``; otherwise sets that attribute to ``None``.
+
+    This middleware must run before :class:`RequestLogMiddleware` so that the log context
+    can reference both IDs.
+    """
+
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Response]
     ) -> Response:

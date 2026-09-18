@@ -8,6 +8,25 @@ from service_kit.logging import logger
 
 
 class RequestLogMiddleware(BaseHTTPMiddleware):
+    """Middleware that logs structured request and response details for every HTTP call.
+
+    Binds ``request_id`` (and ``correlation_id`` when present) from ``request.state`` into the
+    logger context for the duration of each request, so all log lines emitted during handling
+    share those IDs automatically.
+
+    Always logs an INFO-level "Request received" entry with method, path, query parameters,
+    client source, and URL, and an INFO-level "Sending response" entry with status code.
+
+    When :attr:`debug` is ``True``, also emits DEBUG-level entries that include request headers
+    (with the ``Authorization`` value redacted) and the request body, plus response headers.
+
+    Depends on :class:`RequestIDMiddleware` having already populated ``request.state.id`` and
+    ``request.state.correlation_id``.
+
+    Attributes:
+        debug: Set to ``True`` to enable verbose DEBUG-level logging of headers and bodies.
+    """
+
     debug: bool = False
 
     async def dispatch(self, request, call_next):
