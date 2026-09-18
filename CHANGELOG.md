@@ -9,6 +9,15 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Deprecated
+### Fixed
+### Removed
+### Security
+
+
+## [2.5.0] - 2026-09-18
+### Added
 - Support for X-REQUEST-ID header. If specified in an API request, the
   RequestIDMiddleware will use the header value instead of generating a
   ULID/UUID7.
@@ -17,12 +26,6 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
   request, the RequestIDMiddleware will add the correlation ID to the request
   state as `request.state.correlation_id`. This value will be attached to all
   log messages that result from the request.
-
-### Changed
-### Deprecated
-### Fixed
-### Removed
-### Security
 
 
 ## [2.4.1] - 2026-08-28
