@@ -15,6 +15,10 @@ def require_extra(extra_name: str, deps: list[str]) -> None:
 
 require_extra("api", ["fastapi", "ulid", "uvicorn"])
 
+from .constants import (
+    REQUEST_ID_HEADER as REQUEST_ID_HEADER,
+    CORRELATION_ID_HEADER as CORRELATION_ID_HEADER,
+)
 from .types import RequestID as RequestID, CorrelationID as CorrelationID
 from .responses import (
     APIResponse as APIResponse,

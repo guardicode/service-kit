@@ -7,9 +7,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from service_kit.logging import SecurityRisk, logger
 
 from . import RequestID
-
-REQUEST_ID_HEADER: Final[str] = "x-request-id"
-CORRELATION_ID_HEADER: Final[str] = "x-correlation-id"
+from .constants import CORRELATION_ID_HEADER, REQUEST_ID_HEADER
 
 _SAFE_ID_RE: Final[re.Pattern[str]] = re.compile(r"^[a-zA-Z0-9_-]+$")
 
@@ -32,10 +30,10 @@ except ImportError:
 class RequestIDMiddleware(BaseHTTPMiddleware):
     """Middleware that assigns a unique request ID and optional correlation ID to each request.
 
-    Reads the ``x-request-id`` header if present; otherwise generates a new time-ordered ID
+    Reads the ``X-REQUEST-ID`` header if present; otherwise generates a new time-ordered ID
     (UUIDv7 on Python 3.14+, ULID on earlier versions) and stores it in ``request.state.id``.
 
-    Reads the ``x-correlation-id`` header if present and stores it in
+    Reads the ``X-CORRELATION-ID`` header if present and stores it in
     ``request.state.correlation_id``; otherwise sets that attribute to ``None``.
 
     This middleware must run before :class:`RequestLogMiddleware` so that the log context
