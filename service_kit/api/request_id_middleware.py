@@ -1,3 +1,4 @@
+import re
 from typing import Callable, Final
 
 from fastapi import Request, Response
@@ -7,6 +8,8 @@ from . import RequestID
 
 REQUEST_ID_HEADER: Final[str] = "x-request-id"
 CORRELATION_ID_HEADER: Final[str] = "x-correlation-id"
+
+_SAFE_ID_RE: Final[re.Pattern[str]] = re.compile(r"^[a-zA-Z0-9_-]+$")
 
 try:
     # UUIDv7 is available in Python 3.14+ and should be preferred over ULID
@@ -43,13 +46,13 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         request_id_from_header = request.headers.get(REQUEST_ID_HEADER, "").strip()
         correlation_id_from_header = request.headers.get(CORRELATION_ID_HEADER, "").strip()
 
-        # Note that neither the request ID nor the correlation ID may be empty strings.
-        if request_id_from_header:
+        # Reject IDs that contain characters outside [a-zA-Z0-9_-] to prevent log injection.
+        if request_id_from_header and _SAFE_ID_RE.match(request_id_from_header):
             request.state.id = request_id_from_header
         else:
             request.state.id = self._generate_request_id()
 
-        if correlation_id_from_header:
+        if correlation_id_from_header and _SAFE_ID_RE.match(correlation_id_from_header):
             request.state.correlation_id = correlation_id_from_header
         else:
             request.state.correlation_id = None

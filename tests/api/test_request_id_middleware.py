@@ -119,3 +119,49 @@ async def test_whitespace_only_correlation_id(whitespace_correlation_id: Correla
     await middleware.dispatch(request, AsyncMock())
 
     assert request.state.correlation_id is None
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "invalid_request_id",
+    [
+        "id with spaces",
+        "id\nwith\nnewlines",
+        "id\twith\ttabs",
+        "id!with!symbols",
+        "id@host",
+        "id<script>",
+        'id","injected_key": "injected_value"',
+        'id"}{"injected_key": "injected_value", "request_id": "',
+    ],
+)
+async def test_unsafe_request_id_generates_new_id(invalid_request_id: str):
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={REQUEST_ID_HEADER: invalid_request_id})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert _is_valid_id(request.state.id)
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "invalid_correlation_id",
+    [
+        "id with spaces",
+        "id\nwith\nnewlines",
+        "id\twith\ttabs",
+        "id!with!symbols",
+        "id@host",
+        "id<script>",
+        'id","injected_key": "injected_value"',
+        'id"}{"injected_key": "injected_value", "correlation_id": "',
+    ],
+)
+async def test_unsafe_correlation_id_is_None(invalid_correlation_id: str):
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={CORRELATION_ID_HEADER: invalid_correlation_id})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.correlation_id is None
