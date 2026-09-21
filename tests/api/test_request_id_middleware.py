@@ -133,6 +133,7 @@ async def test_whitespace_only_correlation_id(whitespace_correlation_id: Correla
         "id<script>",
         'id","injected_key": "injected_value"',
         'id"}{"injected_key": "injected_value", "request_id": "',
+        "id\x7fwith\x7fdel",
     ],
 )
 async def test_unsafe_request_id_generates_new_id(invalid_request_id: str):
@@ -156,6 +157,7 @@ async def test_unsafe_request_id_generates_new_id(invalid_request_id: str):
         "id<script>",
         'id","injected_key": "injected_value"',
         'id"}{"injected_key": "injected_value", "correlation_id": "',
+        "id\x7fwith\x7fdel",
     ],
 )
 async def test_unsafe_correlation_id_is_None(invalid_correlation_id: str):
