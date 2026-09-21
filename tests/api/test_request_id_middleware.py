@@ -58,3 +58,16 @@ async def test_uses_request_id_header_when_present(request_id_header: str):
     await middleware.dispatch(request, AsyncMock())
 
     assert request.state.id == "client-provided-id"
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize(
+    "whitespace_request_id", [" ", "   ", "\n", "\t", "\n\t\t\n  ", "\t  \n", "\n  \t"]
+)
+async def test_whitespace_only_request_id(whitespace_request_id: RequestID):
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={REQUEST_ID_HEADER: whitespace_request_id})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert _is_valid_id(request.state.id)

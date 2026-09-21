@@ -27,7 +27,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Response]
     ) -> Response:
-        if request.headers.get(REQUEST_ID_HEADER):
+        if request.headers.get(REQUEST_ID_HEADER, "").strip():
             request.state.id = request.headers[REQUEST_ID_HEADER]
         else:
             request.state.id = self._generate_request_id()
