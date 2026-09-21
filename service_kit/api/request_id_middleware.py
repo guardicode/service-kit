@@ -40,13 +40,14 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
     async def dispatch(
         self, request: Request, call_next: Callable[[Request], Response]
     ) -> Response:
+        request_id_from_header = request.headers.get(REQUEST_ID_HEADER, "").strip()
+        correlation_id_from_header = request.headers.get(CORRELATION_ID_HEADER, "").strip()
+
         # Note that neither the request ID nor the correlation ID may be empty strings.
-        if request.headers.get(REQUEST_ID_HEADER, "").strip():
-            request.state.id = request.headers[REQUEST_ID_HEADER]
+        if request_id_from_header:
+            request.state.id = request_id_from_header
         else:
             request.state.id = self._generate_request_id()
-
-        correlation_id_from_header = request.headers.get(CORRELATION_ID_HEADER, "").strip()
 
         if correlation_id_from_header:
             request.state.correlation_id = correlation_id_from_header
