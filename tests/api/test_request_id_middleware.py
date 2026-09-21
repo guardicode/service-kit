@@ -80,6 +80,18 @@ async def test_whitespace_only_request_id(whitespace_request_id: RequestID):
 
 
 @pytest.mark.anyio
+@pytest.mark.parametrize("trailing_whitespace", [" ", "  ", "\n", "\t", "\r\n", "\t\n", "\n "])
+async def test_request_id_trailing_whitespace_stripped(trailing_whitespace: str):
+    expected_request_id = "REQUEST-ID"
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(headers={REQUEST_ID_HEADER: expected_request_id + trailing_whitespace})
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.id == expected_request_id
+
+
+@pytest.mark.anyio
 @pytest.mark.parametrize(
     "correlation_id_header",
     [
@@ -167,3 +179,17 @@ async def test_unsafe_correlation_id_is_None(invalid_correlation_id: str):
     await middleware.dispatch(request, AsyncMock())
 
     assert request.state.correlation_id is None
+
+
+@pytest.mark.anyio
+@pytest.mark.parametrize("trailing_whitespace", [" ", "  ", "\n", "\t", "\r\n", "\t\n", "\n "])
+async def test_correlation_id_trailing_whitespace_stripped(trailing_whitespace: str):
+    expected_correlation_id = "CORRELATION-ID"
+    middleware = RequestIDMiddleware(app=MagicMock())
+    request = make_request(
+        headers={CORRELATION_ID_HEADER: expected_correlation_id + trailing_whitespace}
+    )
+
+    await middleware.dispatch(request, AsyncMock())
+
+    assert request.state.correlation_id == expected_correlation_id

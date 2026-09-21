@@ -62,6 +62,11 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         if value_from_header is None:
             return None
 
+        value_from_header = value_from_header.strip()
+
+        if not value_from_header:
+            return None
+
         if not _SAFE_ID_RE.match(value_from_header):
             logger.warning(
                 (
