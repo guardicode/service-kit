@@ -15,7 +15,7 @@ def require_extra(extra_name: str, deps: list[str]) -> None:
 
 require_extra("api", ["fastapi", "ulid", "uvicorn"])
 
-from .types import RequestID as RequestID
+from .types import RequestID as RequestID, CorrelationID as CorrelationID
 from .responses import (
     APIResponse as APIResponse,
     BadRequestResponse as BadRequestResponse,
