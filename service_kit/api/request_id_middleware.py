@@ -46,8 +46,10 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         else:
             request.state.id = self._generate_request_id()
 
-        if request.headers.get(CORRELATION_ID_HEADER):
-            request.state.correlation_id = request.headers[CORRELATION_ID_HEADER]
+        correlation_id_from_header = request.headers.get(CORRELATION_ID_HEADER, "").strip()
+
+        if correlation_id_from_header:
+            request.state.correlation_id = correlation_id_from_header
         else:
             request.state.correlation_id = None
 
