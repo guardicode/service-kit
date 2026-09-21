@@ -49,7 +49,13 @@ async def test_generates_request_id_when_header_absent():
 
 @pytest.mark.anyio
 @pytest.mark.parametrize(
-    "request_id_header", [REQUEST_ID_HEADER, REQUEST_ID_HEADER.upper(), REQUEST_ID_HEADER.lower()]
+    "request_id_header",
+    [
+        REQUEST_ID_HEADER,
+        REQUEST_ID_HEADER.upper(),
+        REQUEST_ID_HEADER.lower(),
+        REQUEST_ID_HEADER.capitalize(),
+    ],
 )
 async def test_uses_request_id_header_when_present(request_id_header: str):
     middleware = RequestIDMiddleware(app=MagicMock())
@@ -76,7 +82,12 @@ async def test_whitespace_only_request_id(whitespace_request_id: RequestID):
 @pytest.mark.anyio
 @pytest.mark.parametrize(
     "correlation_id_header",
-    [CORRELATION_ID_HEADER, CORRELATION_ID_HEADER.upper(), CORRELATION_ID_HEADER.lower()],
+    [
+        CORRELATION_ID_HEADER,
+        CORRELATION_ID_HEADER.upper(),
+        CORRELATION_ID_HEADER.lower(),
+        CORRELATION_ID_HEADER.capitalize(),
+    ],
 )
 async def test_uses_correlation_id_header_when_present(correlation_id_header: str):
     middleware = RequestIDMiddleware(app=MagicMock())
