@@ -87,4 +87,4 @@ class RequestLogMiddleware(BaseHTTPMiddleware):
                 headers=dict(response.headers),
                 status_code=response.status_code,
             )
-        logger.info("Sending reponse", status_code=response.status_code)
+        logger.info("Sending response", status_code=response.status_code)
