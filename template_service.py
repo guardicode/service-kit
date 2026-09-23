@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 from http import HTTPStatus
+from pathlib import Path
 from typing import Annotated, Final
 
 from fastapi import Depends, FastAPI, Request
@@ -15,7 +16,7 @@ from service_kit.api import (
     register_timeout_error_handler,
 )
 from service_kit.configuration import ServiceConfiguration
-from service_kit.logging import logger
+from service_kit.logging import log_startup_information, logger
 
 PROJECT_NAME: Final[str] = "{{ project_name }}"
 API_VERSION: Final[str] = "0.1.0"
@@ -26,6 +27,8 @@ ENTRYPOINT: Final[str] = (
     "{{ module }}:app"
     {% endif %}
 )
+
+GIT_STATUS_YAML_PATH: Final[Path] = Path.cwd() / "GIT_STATUS.yaml"
 
 # NOTE: Objects that are shared between requests (like a database connection) must be
 # declared globally, initialized in the setup() function, and cleaned up in the
@@ -63,6 +66,7 @@ async def setup(_app: FastAPI) -> ServiceConfiguration:
     config = load_configuration()
     logger.critical(config)
     await bootstrap_logging(_app, config)
+    log_startup_information(GIT_STATUS_YAML_PATH)
 
     _some_dependency = None
     ...
