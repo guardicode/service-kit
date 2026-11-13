@@ -15,6 +15,7 @@ class ServiceConfiguration(BaseSettings, ServiceKitBaseModel):
     bind_address: IPv4Address = Field(
         default=IPv4Address("127.0.0.1"), description="The interface to listen on"
     )
+    port: NetworkPort = Field(default=NetworkPort(8080), description="The port to listen on")
     debug: bool = Field(
         default=False, description="Enable debug mode (also override the log level)"
     )
@@ -28,7 +29,7 @@ class ServiceConfiguration(BaseSettings, ServiceKitBaseModel):
     log_level: Annotated[
         LogLevel, BeforeValidator(lambda v: v.upper() if isinstance(v, str) else v)
     ] = Field(default=LogLevel.INFO, description="The log level to use")
-    port: NetworkPort = Field(default=NetworkPort(8080), description="The port to listen on")
+    workers: int = Field(default=1, description="The number of worker processes to spawn")
     pretty_print_logs: bool = Field(default=True, description="Enable pretty-printing of JSON logs")
     ssl_certfile: Path | None = Field(
         default=None, description="The path to the SSL certificate file"

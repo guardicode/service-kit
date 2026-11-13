@@ -52,6 +52,7 @@ def launch_uvicorn(project_name: str, entrypoint: str, config: ServiceConfigurat
         entrypoint,
         host=str(config.bind_address),
         port=config.port,
+        workers=config.workers,
         reload=config.enable_hot_reload,
         ssl_keyfile=_get_path_str(config.ssl_keyfile),
         ssl_certfile=_get_path_str(config.ssl_certfile),
