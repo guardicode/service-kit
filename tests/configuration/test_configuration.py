@@ -138,3 +138,9 @@ def test_tolerates_extras(tmp_path: Path):
     # This test validates that the ServiceConfiguration constructor does not
     # raise an error when it receives an unexpected (extra) parameter.
     ServiceConfiguration(extra_field="value")  # type: ignore [call-arg]
+
+
+@pytest.mark.parametrize("num_workers", [-1, 0])
+def test_invalid_workers(num_workers: int):
+    with pytest.raises(ValidationError):
+        ServiceConfiguration(workers=num_workers)
