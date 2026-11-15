@@ -7,17 +7,20 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 
-## [2.6.0] - 2026-11-13
+## [Unreleased]
 ### Added
-- Support for multiprocessing. `workers` service configuration option can be
-  used to specify the number of Uvicorn workers to run. If not specified, the
-  default is 1 worker (no multiprocessing).
-
 ### Changed
 ### Deprecated
 ### Fixed
 ### Removed
 ### Security
+
+
+## [2.6.0] - 2026-11-15
+### Added
+- Support for multiprocessing. `workers` service configuration option can be
+  used to specify the number of Uvicorn workers to run. If not specified, the
+  default is 1 worker (no multiprocessing).
 
 
 ## [2.5.0] - 2026-09-18
