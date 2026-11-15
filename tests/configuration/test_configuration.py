@@ -112,6 +112,7 @@ def test_config_defaults():
     assert config.pretty_print_logs is True
     assert config.ssl_certfile is None
     assert config.ssl_keyfile is None
+    assert config.workers == 1
 
 
 def test_custom_values(tmp_path: Path):
@@ -123,6 +124,7 @@ def test_custom_values(tmp_path: Path):
         pretty_print_logs=True,
         ssl_certfile=tmp_path / "custom_certfile",
         ssl_keyfile=tmp_path / "custom_keyfile",
+        workers=7,
     )
 
     assert config.bind_address == IPv4Address("192.168.52.52")
@@ -132,6 +134,7 @@ def test_custom_values(tmp_path: Path):
     assert config.pretty_print_logs is True
     assert config.ssl_certfile is not None
     assert config.ssl_keyfile is not None
+    assert config.workers == 7
 
 
 def test_tolerates_extras(tmp_path: Path):
