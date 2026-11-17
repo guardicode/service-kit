@@ -140,7 +140,7 @@ def configure_logger(
     if log_directory is not None:
         _create_log_directory(log_directory)
 
-        log_file_name_template = "{time}.log"
+        log_file_name_template = f"{os.getpid()}_{{time}}.log"
         if log_file_prefix is not None:
             log_file_name_template = f"{log_file_prefix}_{log_file_name_template}"
 
@@ -158,10 +158,13 @@ def configure_logger(
 
 
 def _create_log_directory(log_directory: Path):
-    if not log_directory.exists():
-        log_directory.mkdir(parents=True)
-    elif not log_directory.is_dir():
-        raise ValueError(f"{log_directory} is not a directory")
+    try:
+        log_directory.mkdir(parents=True, exist_ok=True)
+    except (FileExistsError, NotADirectoryError) as e:
+        raise ValueError(
+            f"Cannot create log directory {log_directory}: the path,"
+            f" or one of its parents, is already taken by a file"
+        ) from e
 
 
 def intercept_uvicorn_loggers():
