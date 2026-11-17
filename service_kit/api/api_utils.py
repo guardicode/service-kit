@@ -47,7 +47,7 @@ def launch_uvicorn(project_name: str, entrypoint: str, config: ServiceConfigurat
                        Example: "my_package.my_module.app"
     :param config: The server's configuration
     """
-    logger.info(f"Starting {project_name}...")
+    logger.info(f"Starting {project_name} with {config.workers} worker(s)...")
     uvicorn.run(
         entrypoint,
         host=str(config.bind_address),
