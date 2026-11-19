@@ -1,6 +1,6 @@
 {
   "template": "https://github.com/guardicode/infection-monkey-cookiecutter",
-  "commit": "10c4e892e15360964daec716e38f19c9baaf220d",
+  "commit": "08888a3de61b107494084f678f1180075728f639",
   "checkout": null,
   "context": {
     "cookiecutter": {
@@ -19,16 +19,22 @@
       "python_major_version": "3",
       "python_minor_version": "11",
       "support_type_checking": true,
+      "hook_ruff": true,
       "hook_shellcheck": false,
+      "hook_gitlint": true,
+      "require_jira_prefix": true,
+      "require_pr_number_on_merge": true,
       "exclude_these_file_in_flake8": "vulture_allowlist.py",
+      "_ruff_version": "0.17.5",
       "_black_version": "25.12.0",
       "_dlint_version": "0.15.0",
       "_flake8_version": "7.3.0",
+      "_gitlint_hook_version": "v0.1.0",
       "_isort_version": "7.0.0",
       "_mypy_version": "1.19.0",
       "_vulture_version": "2.13",
       "_template": "https://github.com/guardicode/infection-monkey-cookiecutter",
-      "_commit": "10c4e892e15360964daec716e38f19c9baaf220d"
+      "_commit": "08888a3de61b107494084f678f1180075728f639"
     }
   },
   "directory": null
