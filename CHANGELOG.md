@@ -7,13 +7,15 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to
 the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 
-## [Unreleased]
-### Added
+## [2.6.1] - 2026-11-18
 ### Changed
-### Deprecated
+- Log file names now include the process ID: `{prefix}_{time}_{pid}.log`.
+  Each worker writes to its own file, as loguru file sinks are not safe to
+  share between processes.
+
 ### Fixed
-### Removed
-### Security
+- Race condition when multiple workers create the log directory at startup,
+  which could crash a worker with `FileExistsError`.
 
 
 ## [2.6.0] - 2026-11-15
