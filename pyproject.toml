@@ -24,10 +24,6 @@ readme = {file = ["README.md"]}
 [project.urls]
 Repository = "https://github.com/guardicode/service-kit"
 
-[tool.black]
-line-length = 100
-exclude = "template_service.py"
-
 [tool.cruft]
 skip = [
     "service_kit/__init__.py",
@@ -36,16 +32,44 @@ skip = [
     "vulture_allowlist.py"
 ]
 
-[tool.isort]
-known_first_party = "service_kit"
-line_length = 100
-skip_glob="**/__init__.py"
-### for compatibility with black
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
+[tool.ruff]
+line-length = 100
+# pre-commit passes files by name; without this, ruff ignores the exclude list for them
+force-exclude = true
+extend-exclude = [
+    "template_service.py",
+    "vulture_allowlist.py",
+]
+
+[tool.ruff.lint]
+extend-select = [
+    "E",    # pycodestyle errors, incl. E501 line length (flake8 parity)
+    "W",    # pycodestyle warnings (flake8 parity)
+    "C90",  # mccabe complexity (flake8 parity)
+    "I",    # Import sorting (isort replacement)
+    "S",    # Security checks (Bandit - primary dlint replacement)
+    "B",    # Bugbear (common bugs and design issues)
+    "BLE",  # Blind except checks
+    "RUF",  # Astral's native rules
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "F401",  # Re-exports
+    "I001",  # Import order may matter; isort skipped these files too
+]
+"tests/**" = [
+    "S101",  # pytest relies on assert
+    "S105",  # Hardcoded passwords are fine in test fixtures
+    "S106",
+    "S108",  # Temp file paths are fine in tests
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["service_kit"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -69,15 +93,12 @@ include = ["CHANGELOG.md", "README.md"]
 packages = [{include = "service_kit"}]
 
 [tool.poetry.group.dev.dependencies]
-black = "25.12.0"
-dlint = "0.15.0"
-flake8 = "7.3.0"
-isort = "7.0.0"
+ruff = "0.17.5"
 mypy = "1.19.0"
 pudb = ">=2025.1.5"
 pynvim = ">=0.4.3, <1.0.0"
 pytest = ">=7.1.0, <8.0.0"
-pytest-cov = ">=3.0.0 <4.0.0"
+pytest-cov = ">=3.0.0, <4.0.0"
 pytest-xdist = ">=3.3.1"
 vulture = "2.13"
 httpx = ">=0.28.1, <1.0.0"
