@@ -140,7 +140,7 @@ def configure_logger(
     if log_directory is not None:
         _create_log_directory(log_directory)
 
-        log_file_name_template = f"{os.getpid()}_{{time}}.log"
+        log_file_name_template = f"{{time}}_{os.getpid()}.log"
         if log_file_prefix is not None:
             log_file_name_template = f"{log_file_prefix}_{log_file_name_template}"
 

@@ -9,7 +9,7 @@ the [PEP 440 version scheme](https://peps.python.org/pep-0440/#version-scheme).
 
 ## [2.6.1] - 2026-11-18
 ### Changed
-- Log file names now include the process ID: `{prefix}_{pid}_{time}.log`.
+- Log file names now include the process ID: `{prefix}_{time}_{pid}.log`.
   Each worker writes to its own file, as loguru file sinks are not safe to
   share between processes.
 
