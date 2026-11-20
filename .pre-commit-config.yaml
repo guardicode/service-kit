@@ -3,10 +3,12 @@ default_language_version:
   python: python3.11
 
 repos:
-  - repo: https://github.com/psf/black
-    rev: 25.12.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.5
     hooks:
-      - id: black
+      - id: ruff-check
+        args: [ --fix ]
+      - id: ruff-format
         exclude: "template_service.py"
   - repo: https://github.com/PyCQA/flake8
     rev: 7.3.0
@@ -28,6 +30,11 @@ repos:
     rev: v1.0.0
     hooks:
       - id: merge-issue-number
+  - repo: https://github.com/guardicode/gitlint-commit-hook
+    rev: v0.1.0
+    hooks:
+      - id: gitlint
+        args: [--require-jira-prefix, --require-pr-number-on-merge]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.19.0
     hooks:
@@ -49,6 +56,10 @@ repos:
     rev: v2.13
     hooks:
       - id: vulture
+  - repo: https://github.com/mssalvatore/changelog-formatter-commit-hook
+    rev: v1.0.0
+    hooks:
+      - id: changelog-formatter
   - repo: https://github.com/mssalvatore/changelog-formatter-commit-hook
     rev: v1.0.2
     hooks:

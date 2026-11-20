@@ -1,15 +1,15 @@
 [project]
-authors = [{name = "Mike Salvatore", email="mike.salvatore@akamai.com"}]
-classifiers=[
-    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
-    "Programming Language :: Python :: 3.11"
+authors = [{ name = "Mike Salvatore", email = "mike.salvatore@akamai.com" }]
+classifiers = [
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+  "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
-    "loguru (>=0.7.3, <1.0)",
-    "monkey-types (>=1.0.0, <3.0.0)",
-    "pydantic-settings (>=2.7.1, <3.0)",
-    "pygments (>=2.19.1,<3.0.0)",
-    "pyyaml (>=6.0.2,<7.0.0)",
+  "loguru (>=0.7.3, <1.0)",
+  "monkey-types (>=1.0.0, <3.0.0)",
+  "pydantic-settings (>=2.7.1, <3.0)",
+  "pygments (>=2.19.1,<3.0.0)",
+  "pyyaml (>=6.0.2,<7.0.0)",
 ]
 description = "A collection of functions and objects that help the Monkey team bootstrap, build, and maintain services"
 dynamic = ["readme"]
@@ -19,33 +19,54 @@ requires-python = ">=3.11, <4.0"
 version = "v2.6.1"
 
 [tool.setuptools.dynamic]
-readme = {file = ["README.md"]}
+readme = { file = ["README.md"] }
 
 [project.urls]
 Repository = "https://github.com/guardicode/service-kit"
 
-[tool.black]
-line-length = 100
-exclude = "template_service.py"
-
 [tool.cruft]
 skip = [
-    "service_kit/__init__.py",
-    "README.md",
-    "CHANGELOG.md",
-    "vulture_allowlist.py"
+  "service_kit/__init__.py",
+  "README.md",
+  "CHANGELOG.md",
+  "vulture_allowlist.py",
 ]
 
-[tool.isort]
-known_first_party = "service_kit"
-line_length = 100
-skip_glob="**/__init__.py"
-### for compatibility with black
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
+[tool.ruff]
+line-length = 100
+# pre-commit passes files by name; without this, ruff ignores the exclude list for them
+force-exclude = true
+extend-exclude = ["vulture_allowlist.py", "template_service.py"]
+
+[tool.ruff.lint]
+extend-select = [
+  "E",   # pycodestyle errors, incl. E501 line length (flake8 parity)
+  "W",   # pycodestyle warnings (flake8 parity)
+  "C90", # mccabe complexity (flake8 parity)
+  "I",   # Import sorting (isort replacement)
+  "S",   # Security checks (Bandit - primary dlint replacement)
+  "B",   # Bugbear (common bugs and design issues)
+  "BLE", # Blind except checks
+  "RUF", # Astral's native rules
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+  "F401", # Re-exports
+  "I001", # Import order may matter; isort skipped these files too
+]
+"tests/**" = [
+  "S101", # pytest relies on assert
+  "S105", # Hardcoded passwords are fine in test fixtures
+  "S106",
+  "S108", # Temp file paths are fine in tests
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["service_kit"]
 
 [tool.mypy]
 check_untyped_defs = true
@@ -60,24 +81,21 @@ log_cli_date_format = "%H:%M:%S"
 addopts = "-v --capture=no tests"
 
 [tool.vulture]
-exclude=[]
+exclude = []
 paths = ["service_kit", "vulture_allowlist.py"]
 
 [tool.poetry]
 readme = "README.md"
 include = ["CHANGELOG.md", "README.md"]
-packages = [{include = "service_kit"}]
+packages = [{ include = "service_kit" }]
 
 [tool.poetry.group.dev.dependencies]
-black = "25.12.0"
-dlint = "0.15.0"
-flake8 = "7.3.0"
-isort = "7.0.0"
+ruff = "0.17.5"
 mypy = "1.19.0"
 pudb = ">=2025.1.5"
 pynvim = ">=0.4.3, <1.0.0"
 pytest = ">=7.1.0, <8.0.0"
-pytest-cov = ">=3.0.0 <4.0.0"
+pytest-cov = ">=3.0.0, <4.0.0"
 pytest-xdist = ">=3.3.1"
 vulture = "2.13"
 httpx = ">=0.28.1, <1.0.0"
@@ -93,7 +111,11 @@ types-pyyaml = ">=6.0.12.20250516, <7.0.0"
 
 [project.optional-dependencies]
 psycopg = ["psycopg (>=3.2.4, <4.0.0)"]
-api = ["fastapi (>=0.115.6, <1.0.0)", "python-ulid (>=3.0.0, <4.0.0)", "uvicorn (>=0.34.0, <1.0.0)"]
+api = [
+  "fastapi (>=0.115.6, <1.0.0)",
+  "python-ulid (>=3.0.0, <4.0.0)",
+  "uvicorn (>=0.34.0, <1.0.0)",
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
